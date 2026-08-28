@@ -1,278 +1,3734 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cyber Fish</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            touch-action: none;
-        }
+<title>MR. ENGLISH | منصة التعليم</title>
 
-        body {
-            background: radial-gradient(circle at center, #0d061f 0%, #030107 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-        #svg-canvas {
-            display: block;
-            width: 100vw;
-            height: 100vh;
-            width: 100dvw;
-            height: 100dvh;
-        }
+<style>
 
-        use {
-            filter: drop-shadow(0px 0px 12px rgba(0, 255, 222, 0.75));
-            transition: filter 0.3s ease;
-        }
+/* =========================================================
+   RESET
+========================================================= */
 
-        body.clicked use {
-            filter: drop-shadow(0px 0px 25px rgba(255, 42, 109, 1));
-        }
-    </style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Cairo",sans-serif;
+    background:#f5f7fb;
+    color:#172033;
+    overflow-x:hidden;
+}
+
+button,
+input,
+textarea,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+    --primary:#ff6b35;
+    --primary-dark:#e95420;
+    --navy:#111c35;
+    --navy-2:#182642;
+    --text:#172033;
+    --muted:#788398;
+    --white:#ffffff;
+    --bg:#f5f7fb;
+    --border:#e8ebf2;
+    --green:#19b878;
+    --red:#ef476f;
+    --shadow:0 20px 60px rgba(17,28,53,.10);
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:var(--navy);
+    z-index:99999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.5s;
+}
+
+.loader.hide{
+    opacity:0;
+    pointer-events:none;
+}
+
+.loader-content{
+    text-align:center;
+    color:white;
+}
+
+.loader-logo{
+    font-size:42px;
+    font-weight:900;
+    direction:ltr;
+}
+
+.loader-logo span{
+    color:var(--primary);
+}
+
+.loader-circle{
+    width:45px;
+    height:45px;
+    border:4px solid rgba(255,255,255,.15);
+    border-top-color:var(--primary);
+    border-radius:50%;
+    margin:25px auto 0;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    right:0;
+    left:0;
+    height:78px;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(0,0,0,.05);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    z-index:5000;
+}
+
+.logo{
+    font-size:23px;
+    font-weight:900;
+    direction:ltr;
+    color:var(--navy);
+}
+
+.logo span{
+    color:var(--primary);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+.nav-links a{
+    font-size:14px;
+    font-weight:700;
+    color:#566176;
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:var(--primary);
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.btn{
+    border:0;
+    border-radius:12px;
+    padding:11px 20px;
+    font-weight:800;
+    transition:.25s;
+}
+
+.btn-primary{
+    background:var(--primary);
+    color:white;
+    box-shadow:0 8px 22px rgba(255,107,53,.22);
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+    background:var(--primary-dark);
+}
+
+.btn-dark{
+    background:var(--navy);
+    color:white;
+}
+
+.btn-light{
+    background:#f1f3f7;
+    color:var(--navy);
+}
+
+.btn-danger{
+    background:#fff0f3;
+    color:var(--red);
+}
+
+.menu-btn{
+    display:none;
+    border:0;
+    background:#f2f4f8;
+    width:43px;
+    height:43px;
+    border-radius:12px;
+    font-size:20px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100vh;
+    padding:150px 8% 80px;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    align-items:center;
+    gap:70px;
+    background:
+        radial-gradient(circle at 80% 20%,rgba(255,107,53,.16),transparent 28%),
+        radial-gradient(circle at 10% 70%,rgba(34,85,255,.07),transparent 25%),
+        #f7f9fc;
+}
+
+.hero-text{
+    position:relative;
+    z-index:2;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#fff0e9;
+    color:var(--primary);
+    padding:9px 17px;
+    border-radius:50px;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:clamp(48px,6vw,82px);
+    line-height:1.08;
+    letter-spacing:-2px;
+    margin-bottom:25px;
+}
+
+.hero h1 span{
+    color:var(--primary);
+}
+
+.hero-description{
+    max-width:620px;
+    color:var(--muted);
+    font-size:18px;
+    line-height:2;
+    margin-bottom:32px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.hero-btn{
+    padding:15px 27px;
+    border-radius:14px;
+    font-weight:800;
+}
+
+.hero-stats{
+    display:flex;
+    gap:45px;
+    margin-top:45px;
+}
+
+.hero-stat strong{
+    display:block;
+    font-size:27px;
+}
+
+.hero-stat span{
+    color:var(--muted);
+    font-size:13px;
+}
+
+
+/* =========================================================
+   HERO VISUAL
+========================================================= */
+
+.hero-visual{
+    position:relative;
+    min-height:520px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.glow{
+    position:absolute;
+    width:350px;
+    height:350px;
+    border-radius:50%;
+    background:rgba(255,107,53,.13);
+    filter:blur(10px);
+}
+
+.teacher-profile{
+    position:relative;
+    width:330px;
+    min-height:410px;
+    background:white;
+    border:1px solid rgba(255,255,255,.8);
+    border-radius:35px;
+    padding:40px 25px;
+    text-align:center;
+    box-shadow:0 35px 90px rgba(17,28,53,.15);
+    z-index:2;
+}
+
+.teacher-photo{
+    width:135px;
+    height:135px;
+    margin:auto;
+    border-radius:50%;
+    background:linear-gradient(135deg,#fff0e9,#ffd4c2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:70px;
+    border:7px solid white;
+    box-shadow:0 15px 35px rgba(0,0,0,.10);
+}
+
+.teacher-profile h2{
+    margin-top:20px;
+    font-size:27px;
+}
+
+.teacher-role{
+    color:var(--primary);
+    font-weight:800;
+    font-size:14px;
+}
+
+.teacher-divider{
+    height:1px;
+    background:#edf0f4;
+    margin:25px 0;
+}
+
+.teacher-rating{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    font-weight:800;
+}
+
+.float-box{
+    position:absolute;
+    background:white;
+    padding:15px 18px;
+    border-radius:16px;
+    box-shadow:0 20px 45px rgba(0,0,0,.12);
+    font-weight:800;
+    z-index:5;
+    animation:float 3s ease-in-out infinite;
+}
+
+.float-1{
+    top:70px;
+    right:0;
+}
+
+.float-2{
+    bottom:70px;
+    left:0;
+    animation-delay:1s;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-10px)}
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section{
+    padding:110px 8%;
+}
+
+.section-header{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.section-label{
+    color:var(--primary);
+    font-weight:900;
+    font-size:14px;
+}
+
+.section-header h2{
+    font-size:42px;
+    margin:8px 0;
+}
+
+.section-header h2 span{
+    color:var(--primary);
+}
+
+.section-header p{
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   COURSES
+========================================================= */
+
+.courses{
+    background:white;
+}
+
+.course-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.course-card{
+    position:relative;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:27px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.course-card:hover{
+    transform:translateY(-8px);
+    box-shadow:var(--shadow);
+}
+
+.course-card.featured{
+    border:2px solid var(--primary);
+}
+
+.course-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.course-icon{
+    width:60px;
+    height:60px;
+    border-radius:17px;
+    background:#fff0e9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:29px;
+}
+
+.course-badge{
+    font-size:11px;
+    background:#fff0e9;
+    color:var(--primary);
+    padding:6px 10px;
+    border-radius:30px;
+    font-weight:800;
+}
+
+.course-card h3{
+    font-size:21px;
+    margin:20px 0 10px;
+}
+
+.course-card p{
+    color:var(--muted);
+    line-height:1.8;
+    min-height:58px;
+    font-size:14px;
+}
+
+.course-info{
+    display:flex;
+    gap:17px;
+    margin:20px 0;
+    color:#657089;
+    font-size:12px;
+}
+
+.course-button{
+    width:100%;
+    padding:13px;
+    border:0;
+    background:var(--navy);
+    color:white;
+    border-radius:12px;
+    font-weight:800;
+}
+
+.course-button:hover{
+    background:var(--primary);
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.features{
+    background:#f7f9fc;
+}
+
+.features-grid{
+    max-width:1150px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.feature{
+    background:white;
+    padding:28px 20px;
+    border-radius:20px;
+    text-align:center;
+    border:1px solid var(--border);
+}
+
+.feature-icon{
+    font-size:35px;
+    margin-bottom:12px;
+}
+
+.feature h3{
+    font-size:17px;
+    margin-bottom:7px;
+}
+
+.feature p{
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about{
+    background:white;
+}
+
+.about-container{
+    max-width:1100px;
+    margin:auto;
+    background:var(--navy);
+    color:white;
+    border-radius:35px;
+    padding:60px;
+    display:grid;
+    grid-template-columns:180px 1fr;
+    gap:45px;
+    align-items:center;
+}
+
+.about-avatar{
+    width:160px;
+    height:160px;
+    border-radius:30px;
+    background:rgba(255,255,255,.09);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:75px;
+}
+
+.about-content span{
+    color:#ff9a76;
+    font-weight:800;
+}
+
+.about-content h2{
+    font-size:36px;
+    margin:8px 0 15px;
+}
+
+.about-content p{
+    color:#bfc7d6;
+    line-height:2;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.contact{
+    background:#f7f9fc;
+}
+
+.contact-grid{
+    max-width:850px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.contact-card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    text-align:center;
+    border:1px solid var(--border);
+    font-weight:800;
+    transition:.3s;
+}
+
+.contact-card:hover{
+    transform:translateY(-5px);
+    box-shadow:var(--shadow);
+}
+
+.contact-card div{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:#0c1529;
+    color:white;
+    padding:40px 8%;
+    text-align:center;
+}
+
+footer p{
+    color:#8e99ad;
+    margin-top:10px;
+    font-size:13px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(5,10,20,.72);
+    backdrop-filter:blur(8px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:9000;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-box{
+    width:440px;
+    max-width:100%;
+    background:white;
+    border-radius:28px;
+    padding:35px;
+    position:relative;
+    animation:popup .25s ease;
+    max-height:90vh;
+    overflow:auto;
+}
+
+@keyframes popup{
+    from{
+        transform:translateY(20px) scale(.96);
+        opacity:0;
+    }
+    to{
+        transform:none;
+        opacity:1;
+    }
+}
+
+.close-modal{
+    position:absolute;
+    top:12px;
+    left:15px;
+    width:38px;
+    height:38px;
+    border:0;
+    background:#f3f4f7;
+    border-radius:50%;
+    font-size:22px;
+}
+
+.modal-icon{
+    width:65px;
+    height:65px;
+    background:#fff0e9;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+    margin-bottom:15px;
+}
+
+.modal-box h2{
+    font-size:25px;
+}
+
+.modal-box > p{
+    color:var(--muted);
+    font-size:13px;
+    margin:4px 0 22px;
+}
+
+.form-group{
+    margin-bottom:13px;
+}
+
+.form-group label{
+    display:block;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:6px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    padding:13px;
+    border:1px solid #dfe3ea;
+    border-radius:12px;
+    outline:0;
+    background:#fafbfc;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:var(--primary);
+    background:white;
+}
+
+.form-group textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.form-submit{
+    width:100%;
+    padding:13px;
+    border:0;
+    background:var(--primary);
+    color:white;
+    border-radius:12px;
+    font-weight:800;
+    margin-top:5px;
+}
+
+.switch-login{
+    text-align:center;
+    margin-top:18px;
+    color:var(--muted);
+    font-size:12px;
+}
+
+.switch-login button{
+    border:0;
+    background:none;
+    color:var(--primary);
+    font-weight:800;
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard{
+    display:none;
+    min-height:100vh;
+    background:#f4f6fa;
+}
+
+.dashboard.active{
+    display:block;
+}
+
+.dashboard-nav{
+    height:75px;
+    background:white;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 5%;
+    position:sticky;
+    top:0;
+    z-index:3000;
+}
+
+.dashboard-user{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.user-avatar{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    background:#fff0e9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.dashboard-main{
+    padding:40px 6%;
+}
+
+.dashboard-title{
+    margin-bottom:30px;
+}
+
+.dashboard-title h1{
+    font-size:34px;
+}
+
+.dashboard-title p{
+    color:var(--muted);
+}
+
+.dashboard-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:30px;
+}
+
+.dashboard-stat{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:22px;
+}
+
+.dashboard-stat span{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.dashboard-stat strong{
+    display:block;
+    font-size:28px;
+    margin-top:5px;
+}
+
+.admin-layout{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:25px;
+}
+
+.sidebar{
+    background:var(--navy);
+    border-radius:20px;
+    padding:20px;
+    height:max-content;
+}
+
+.sidebar button{
+    width:100%;
+    border:0;
+    background:transparent;
+    color:#bbc4d3;
+    padding:13px;
+    text-align:right;
+    border-radius:10px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.sidebar button.active,
+.sidebar button:hover{
+    background:rgba(255,255,255,.09);
+    color:white;
+}
+
+.dashboard-panel{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:25px;
+}
+
+.panel-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.panel-header h2{
+    font-size:22px;
+}
+
+.admin-courses{
+    display:grid;
+    gap:12px;
+}
+
+.admin-course{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    padding:17px;
+    border:1px solid var(--border);
+    border-radius:14px;
+}
+
+.admin-course-info{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.admin-course-icon{
+    width:50px;
+    height:50px;
+    border-radius:12px;
+    background:#fff0e9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+}
+
+.admin-actions{
+    display:flex;
+    gap:7px;
+}
+
+.small-btn{
+    border:0;
+    border-radius:9px;
+    padding:8px 12px;
+    font-size:12px;
+    font-weight:800;
+}
+
+.empty{
+    text-align:center;
+    padding:45px;
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   STUDENT AREA
+========================================================= */
+
+.student-area{
+    display:none;
+    min-height:100vh;
+    background:#f5f7fb;
+}
+
+.student-area.active{
+    display:block;
+}
+
+.student-header{
+    background:var(--navy);
+    color:white;
+    padding:120px 7% 55px;
+}
+
+.student-header-content{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.student-header h1{
+    font-size:38px;
+}
+
+.student-header p{
+    color:#b9c2d2;
+}
+
+.student-courses{
+    padding:45px 7%;
+    max-width:1300px;
+    margin:auto;
+}
+
+.student-course-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+
+/* =========================================================
+   COURSE VIEW
+========================================================= */
+
+.course-view{
+    display:none;
+    min-height:100vh;
+    background:#f5f7fb;
+}
+
+.course-view.active{
+    display:block;
+}
+
+.course-view-header{
+    background:var(--navy);
+    color:white;
+    padding:110px 7% 45px;
+}
+
+.course-view-header-inner{
+    max-width:1100px;
+    margin:auto;
+}
+
+.course-view-header h1{
+    font-size:38px;
+    margin:10px 0;
+}
+
+.course-view-header p{
+    color:#bfc7d6;
+}
+
+.lessons{
+    max-width:1000px;
+    margin:40px auto;
+    padding:0 20px 70px;
+}
+
+.lesson{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:18px;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.lesson-number{
+    width:45px;
+    height:45px;
+    flex-shrink:0;
+    border-radius:12px;
+    background:#fff0e9;
+    color:var(--primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+}
+
+.lesson-info{
+    flex:1;
+}
+
+.lesson-info h3{
+    font-size:15px;
+}
+
+.lesson-info span{
+    color:var(--muted);
+    font-size:11px;
+}
+
+.lesson-btn{
+    border:0;
+    background:var(--navy);
+    color:white;
+    padding:9px 15px;
+    border-radius:9px;
+    font-weight:700;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+    bottom:25px;
+    left:25px;
+    background:var(--navy);
+    color:white;
+    padding:15px 20px;
+    border-radius:13px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+    transform:translateY(100px);
+    opacity:0;
+    transition:.3s;
+    z-index:99999;
+    font-size:13px;
+}
+
+.toast.show{
+    transform:none;
+    opacity:1;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 1100px){
+
+    .navbar{
+        padding:0 4%;
+    }
+
+    .nav-links{
+        gap:18px;
+    }
+
+    .nav-links a{
+        font-size:13px;
+    }
+
+    .hero{
+        grid-template-columns:1fr 1fr;
+        gap:35px;
+        padding-left:6%;
+        padding-right:6%;
+    }
+
+    .hero h1{
+        font-size:clamp(42px,6vw,65px);
+    }
+
+    .hero-description{
+        font-size:16px;
+    }
+
+    .course-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .features-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .student-course-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .dashboard-stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .admin-layout{
+        grid-template-columns:190px 1fr;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 768px){
+
+    body{
+        overflow-x:hidden;
+    }
+
+    /* NAVBAR */
+
+    .navbar{
+        height:68px;
+        padding:0 4%;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .nav-actions{
+        gap:7px;
+    }
+
+    .nav-actions .btn{
+        padding:9px 12px;
+        font-size:11px;
+        border-radius:10px;
+    }
+
+    .menu-btn{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:40px;
+        height:40px;
+    }
+
+
+    /* HERO */
+
+    .hero{
+        min-height:auto;
+        grid-template-columns:1fr;
+        gap:35px;
+        padding:115px 5% 60px;
+        text-align:center;
+    }
+
+    .hero-text{
+        width:100%;
+    }
+
+    .hero-badge{
+        font-size:11px;
+        padding:8px 13px;
+    }
+
+    .hero h1{
+        font-size:45px;
+        line-height:1.15;
+        letter-spacing:-1px;
+    }
+
+    .hero-description{
+        font-size:14px;
+        line-height:1.9;
+        margin-bottom:25px;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+        width:100%;
+    }
+
+    .hero-btn{
+        width:100%;
+        max-width:300px;
+        padding:13px 20px;
+    }
+
+    .hero-stats{
+        justify-content:center;
+        gap:25px;
+        margin-top:32px;
+    }
+
+    .hero-stat strong{
+        font-size:21px;
+    }
+
+    .hero-stat span{
+        font-size:11px;
+    }
+
+
+    /* HERO VISUAL */
+
+    .hero-visual{
+        min-height:390px;
+        width:100%;
+    }
+
+    .glow{
+        width:270px;
+        height:270px;
+    }
+
+    .teacher-profile{
+        width:270px;
+        min-height:350px;
+        padding:30px 20px;
+        border-radius:28px;
+    }
+
+    .teacher-photo{
+        width:105px;
+        height:105px;
+        font-size:55px;
+    }
+
+    .teacher-profile h2{
+        font-size:23px;
+    }
+
+    .float-box{
+        padding:11px 13px;
+        font-size:11px;
+        border-radius:12px;
+    }
+
+    .float-1{
+        top:35px;
+        right:0;
+    }
+
+    .float-2{
+        bottom:35px;
+        left:0;
+    }
+
+
+    /* SECTIONS */
+
+    .section{
+        padding:65px 5%;
+    }
+
+    .section-header{
+        margin-bottom:35px;
+    }
+
+    .section-header h2{
+        font-size:29px;
+        line-height:1.4;
+    }
+
+    .section-header p{
+        font-size:13px;
+    }
+
+
+    /* COURSES */
+
+    .course-grid,
+    .student-course-grid{
+        grid-template-columns:1fr;
+        gap:17px;
+    }
+
+    .course-card{
+        padding:21px;
+        border-radius:20px;
+    }
+
+    .course-card h3{
+        font-size:19px;
+    }
+
+    .course-card p{
+        font-size:13px;
+        min-height:auto;
+    }
+
+    .course-info{
+        margin:15px 0;
+        gap:12px;
+    }
+
+
+    /* FEATURES */
+
+    .features-grid{
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    }
+
+    .feature{
+        padding:20px 12px;
+        border-radius:16px;
+    }
+
+    .feature-icon{
+        font-size:28px;
+    }
+
+    .feature h3{
+        font-size:14px;
+    }
+
+    .feature p{
+        font-size:11px;
+    }
+
+
+    /* ABOUT */
+
+    .about-container{
+        grid-template-columns:1fr;
+        padding:32px 22px;
+        border-radius:25px;
+        text-align:center;
+        gap:25px;
+    }
+
+    .about-avatar{
+        width:110px;
+        height:110px;
+        font-size:55px;
+        border-radius:22px;
+    }
+
+    .about-content h2{
+        font-size:25px;
+        line-height:1.5;
+    }
+
+    .about-content p{
+        font-size:13px;
+        line-height:1.9;
+    }
+
+
+    /* CONTACT */
+
+    .contact-grid{
+        grid-template-columns:1fr;
+        gap:12px;
+    }
+
+    .contact-card{
+        padding:20px;
+    }
+
+
+    /* MODALS */
+
+    .modal{
+        padding:12px;
+        align-items:center;
+    }
+
+    .modal-box{
+        width:100%;
+        max-width:420px;
+        padding:28px 20px;
+        border-radius:22px;
+        max-height:92vh;
+    }
+
+    .modal-box h2{
+        font-size:22px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select{
+        padding:12px;
+        font-size:13px;
+    }
+
+
+    /* DASHBOARD */
+
+    .dashboard-nav{
+        height:auto;
+        min-height:68px;
+        padding:10px 4%;
+        gap:8px;
+    }
+
+    .dashboard-user{
+        gap:7px;
+    }
+
+    .dashboard-user strong{
+        display:none;
+    }
+
+    .dashboard-user .btn{
+        padding:8px 11px;
+        font-size:11px;
+    }
+
+    .dashboard-main{
+        padding:22px 4%;
+    }
+
+    .dashboard-title h1{
+        font-size:27px;
+    }
+
+    .dashboard-title p{
+        font-size:12px;
+    }
+
+    .dashboard-stats{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .dashboard-stat{
+        padding:17px 13px;
+        border-radius:15px;
+    }
+
+    .dashboard-stat span{
+        font-size:10px;
+    }
+
+    .dashboard-stat strong{
+        font-size:23px;
+    }
+
+
+    /* ADMIN */
+
+    .admin-layout{
+        grid-template-columns:1fr;
+        gap:15px;
+    }
+
+    .sidebar{
+        display:flex;
+        gap:6px;
+        padding:8px;
+        overflow-x:auto;
+        border-radius:14px;
+    }
+
+    .sidebar button{
+        min-width:120px;
+        margin:0;
+        padding:10px;
+        text-align:center;
+        white-space:nowrap;
+        font-size:11px;
+    }
+
+    .dashboard-panel{
+        padding:17px;
+        border-radius:16px;
+    }
+
+    .panel-header{
+        gap:10px;
+    }
+
+    .panel-header h2{
+        font-size:18px;
+    }
+
+    .panel-header .btn{
+        padding:9px 11px;
+        font-size:10px;
+    }
+
+    .admin-course{
+        padding:13px;
+        flex-direction:column;
+        align-items:stretch;
+        gap:12px;
+    }
+
+    .admin-course-info{
+        width:100%;
+    }
+
+    .admin-actions{
+        width:100%;
+    }
+
+    .admin-actions button{
+        flex:1;
+    }
+
+
+    /* STUDENT HEADER */
+
+    .student-header{
+        padding:100px 5% 40px;
+    }
+
+    .student-header-content{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+    .student-header h1{
+        font-size:28px;
+    }
+
+    .student-header p{
+        font-size:12px;
+    }
+
+    .student-header .btn{
+        width:100%;
+    }
+
+    .student-courses{
+        padding:30px 5%;
+    }
+
+
+    /* COURSE VIEW */
+
+    .course-view-header{
+        padding:95px 5% 35px;
+    }
+
+    .course-view-header-inner{
+        width:100%;
+    }
+
+    .course-view-header h1{
+        font-size:27px;
+        line-height:1.4;
+    }
+
+    .course-view-header p{
+        font-size:12px;
+        line-height:1.8;
+    }
+
+    .course-view-header .btn{
+        padding:9px 13px;
+        font-size:11px;
+    }
+
+    .lessons{
+        margin:25px auto;
+        padding:0 12px 50px;
+    }
+
+    .lesson{
+        padding:13px;
+        border-radius:14px;
+        gap:10px;
+    }
+
+    .lesson-number{
+        width:38px;
+        height:38px;
+        font-size:12px;
+    }
+
+    .lesson-info h3{
+        font-size:13px;
+    }
+
+    .lesson-info span{
+        font-size:10px;
+    }
+
+    .lesson-btn{
+        padding:8px 11px;
+        font-size:10px;
+        white-space:nowrap;
+    }
+
+
+    /* FOOTER */
+
+    footer{
+        padding:30px 5%;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 400px){
+
+    .logo{
+        font-size:16px;
+    }
+
+    .nav-actions .btn{
+        font-size:10px;
+        padding:8px 9px;
+    }
+
+    .menu-btn{
+        width:37px;
+        height:37px;
+        font-size:17px;
+    }
+
+    .hero{
+        padding-top:105px;
+    }
+
+    .hero h1{
+        font-size:39px;
+    }
+
+    .hero-description{
+        font-size:13px;
+    }
+
+    .hero-stats{
+        gap:15px;
+    }
+
+    .hero-stat strong{
+        font-size:19px;
+    }
+
+    .teacher-profile{
+        width:245px;
+    }
+
+    .float-box{
+        font-size:10px;
+        padding:9px 11px;
+    }
+
+    .features-grid{
+        grid-template-columns:1fr;
+    }
+
+    .dashboard-stats{
+        grid-template-columns:1fr;
+    }
+
+    .dashboard-stat{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    .dashboard-stat strong{
+        margin:0;
+    }
+
+    .modal-box{
+        padding:25px 16px;
+    }
+
+}
+</style>
 </head>
+
 <body>
-    <svg id="svg-canvas">
-        <defs>
-            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="2" result="blur" />
-                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-            </filter>
 
-            <g id="Cabeza">
-                <path style="fill: #00ffde; fill-opacity: 1"
-                    d="M-28.9,-1.1L-28.55 -1.95Q-28.1 -3.1 -27.25 -2.95L-26.7 -2.95Q-27.7 -1.65 -28.9 -1.1M-18.35,-1.8Q-15.1 -10.3 -9.6 -6.05Q-15.1 -6.2 -18.35 -1.8M-18.35,1.1Q-15.1 5.45 -9.6 5.35Q-15.1 9.55 -18.35 1.1M-26.7,2.2L-27.25 2.25Q-28.1 2.4 -28.55 1.2L-28.9 0.35Q-27.7 0.9 -26.7 2.2" />
-                <path style="fill: #0f051d; fill-opacity: 1; stroke: #00ffde; stroke-width: 0.5;"
-                    d="M-21.05,-8.25Q-13.6 -15.95 -1.3 -12.1Q-7.85 -8.5 -5.85 -4.35Q-2.3 -4.85 10.5 0.15Q0 4.35 -5.85 3.65Q-7.85 7.75 -1.25 12.45Q-13.6 15.2 -21.05 7.5Q-29.55 4.05 -30.2 -0.35Q-29.55 -4.8 -21.05 -8.25M-26.7,-2.95L-27.25 -2.95Q-28.1 -3.1 -28.55 -1.95L-28.9 -1.1Q-27.7 -1.65 -26.7 -2.95M-9.6,-6.05Q-15.1 -10.3 -18.35 -1.8Q-15.1 -6.2 -9.6 -6.05M-9.6,5.35Q-15.1 5.45 -18.35 1.1Q-15.1 9.55 -9.6 5.35M-28.9,0.35L-28.55 1.2Q-28.1 2.4 -27.25 2.25L-26.7 2.2Q-27.7 0.9 -28.9 0.35" />
-            </g>
 
-            <g id="Aletas">
-                <linearGradient id="LinearGradID_1" gradientUnits="userSpaceOnUse"
-                    gradientTransform="matrix(0.0935974, 0, 0, 0.188782, -20.55, 0)" spreadMethod="pad" x1="-819.2"
-                    y1="0" x2="819.2" y2="0">
-                    <stop offset="0" style="stop-color: #ff2a6d; stop-opacity: 1" />
-                    <stop offset="1" style="stop-color: #05010d; stop-opacity: 1" />
-                </linearGradient>
-                <path style="fill: url(#LinearGradID_1); stroke: #ff2a6d; stroke-width: 0.3;"
-                    d="M29.75,-36.85Q-17.75 -61.45 -42.05 -40.95L-45.35 -38.35L-53.7 -41.15L-51.15 -44.85Q-34.85 -68.4 21 -57.8Q-32.2 -72.1 -50.25 -50Q-53.85 -45.65 -56.05 -41.95L-64.7 -43.35L-60.6 -50.3Q-45.9 -75.55 5.1 -79.35Q-2.2 -79.8 -9.45 -79.15Q-16.2 -78.55 -22.85 -77.15Q-29.85 -75.65 -36.5 -73Q-43.05 -70.4 -48.8 -66.85Q-54.55 -63.35 -56.8 -60.3L-60.5 -55.4Q-62.95 -52.1 -67 -43.55L-70.55 -43.55L-76.35 -42.95Q-74.6 -49.1 -71.85 -54.85Q-68.9 -61.25 -64.8 -67.1Q-60.8 -73 -55.45 -77.55Q-49.9 -82.35 -43.65 -85.85L-30.6 -92.7Q-24.05 -95.95 -17 -98.25Q-63.75 -86.35 -73.65 -57.1Q-75.75 -50.75 -77.45 -42.75Q-82.9 -41.75 -88 -39.65Q-87.65 -46.65 -86.3 -53.05Q-79.8 -89.8 -36.65 -117.2Q-80.65 -94.5 -87.55 -59.55Q-88.65 -54.15 -88.95 -39.4L-89.8 -38.85L-92.7 -37.6Q-93.75 -44.35 -94.1 -51.15Q-94.4 -58.2 -93.25 -65.1Q-92.15 -72.5 -90.05 -79.65Q-88.05 -86.55 -85 -93Q-82.1 -99.3 -78.45 -105.15Q-74.6 -111.35 -70.25 -117.25Q-65.95 -123.1 -61.1 -128.55Q-70.3 -119.35 -77.9 -108.7Q-86 -97.3 -90.8 -84.05Q-95.8 -70.5 -96 -56.15Q-96.1 -46 -94.05 -36.05L-93.25 -31.55Q-93.5 -35.65 -92.35 -36Q-79.85 -42 -66.6 -40.45Q-52.45 -38.85 -39.2 -33.25Q-28.3 -29.9 -21.25 -24.15Q-17.8 -23.3 -8.6 -15.6Q-12.1 -20.75 -16.75 -24.5Q-24.55 -30.7 -34.25 -34.05L-42.55 -37Q-38.9 -41.25 -31.5 -43.25Q-24.05 -45.3 -16.2 -46.3Q-8.35 -47.35 -1 -46Q5.95 -44.75 12.75 -42.85Q19.85 -40.9 29.75 -36.85M-92.45,-27.35L-94.95 -36.25Q-109.7 -105 -27.95 -154.65Q-98.65 -103.8 -91.75 -39.4L-89.95 -40.2Q-92.2 -105.25 -5.6 -130.9Q-78.8 -99.95 -87.45 -40.9Q-83.15 -42.95 -78.45 -43.95Q-70 -101.3 17.65 -103.8Q-56.9 -93.4 -74.5 -44.55L-67.4 -45.45Q-49.1 -94.95 39.25 -75.65Q-36.75 -84.35 -62.25 -44.25L-57.3 -43.6Q-31.65 -86.5 56.15 -46.05Q-20.3 -73.35 -51.35 -41.7L-45.95 -39.75Q-17.85 -71.35 51.85 -24.8Q-8.7 -56.4 -39.75 -37.05Q-28.15 -34.05 -14.25 -24.45Q-8.6 -19.85 -5.8 -16.95Q5.95 -2.4 20 0Q5.95 2.4 -5.8 16.95Q-8.6 19.85 -14.25 24.45Q-28.15 34.05 -39.75 37.05Q-8.7 56.4 51.85 24.8Q-17.85 71.35 -45.95 39.75L-51.35 41.7Q-20.3 73.35 56.15 46.1Q-31.65 86.5 -57.3 43.65L-62.25 44.3Q-36.75 84.35 39.25 75.7Q-49.1 94.95 -67.4 45.5L-74.5 44.6Q-56.9 93.4 17.65 103.85Q-70 101.3 -78.45 43.95Q-83.15 42.95 -87.45 40.9Q-78.8 99.95 -5.6 130.9Q-92.2 105.25 -89.95 40.25L-91.75 39.4Q-98.65 103.8 -27.95 154.65Q-109.7 105 -94.95 36.3L-92.45 27.35Q-93.05 33.9 -92.05 34.75Q-91.1 35.55 -88.95 36.7L-87.95 37Q-83.7 38.25 -79.05 38.8L-77.25 38.95Q-72.55 39.3 -67.5 38.85L-65.45 38.65Q-44.4 36.05 -17.8 19.6Q-9.9 12.8 -15.15 4.4Q-18.15 3.15 -19 0Q-18.15 -3.15 -15.15 -4.4Q-9.9 -12.8 -17.8 -19.6L-17.8 -19.55Q-44.4 -36.05 -65.45 -38.6L-67.5 -38.8Q-72.55 -39.3 -77.25 -38.95L-79.05 -38.75Q-83.7 -38.25 -87.95 -36.95L-88.95 -36.65Q-91.1 -35.55 -92.05 -34.7Q-93.05 -33.9 -92.45 -27.35M-8.6,15.6Q-17.8 23.3 -21.25 24.2Q-28.3 29.9 -39.2 33.3Q-52.45 38.85 -66.6 40.5Q-79.85 42 -92.35 36Q-93.5 35.65 -93.25 31.55L-94.05 36.1Q-96.1 46.05 -96 56.15Q-95.8 70.5 -90.8 84.1Q-86 97.3 -77.9 108.75Q-70.3 119.35 -61.1 128.6Q-65.95 123.1 -70.25 117.25Q-74.6 111.35 -78.45 105.15Q-82.1 99.3 -85 93Q-88.05 86.55 -90.05 79.7Q-92.15 72.5 -93.25 65.1Q-94.4 58.2 -94.1 51.2Q-93.75 44.35 -92.7 37.6L-89.8 38.9L-88.95 39.45Q-88.65 54.15 -87.55 59.55Q-80.65 94.5 -36.65 117.25Q-79.8 89.8 -86.3 53.1Q-87.65 46.65 -88 39.65Q-82.9 41.75 -77.45 42.75Q-75.75 50.75 -73.65 57.15Q-63.75 86.35 -17 98.3Q-24.05 95.95 -30.6 92.75L-43.65 85.9Q-49.9 82.35 -55.45 77.6Q-60.8 73 -64.8 67.15Q-68.9 61.25 -71.85 54.85Q-74.6 49.1 -76.35 42.95L-70.55 43.6L-67 43.6Q-62.95 52.1 -60.5 55.4L-56.8 60.35Q-54.55 63.35 -48.8 66.9Q-43.05 70.4 -36.5 73Q-29.85 75.65 -22.85 77.15Q-16.2 78.55 -9.45 79.15Q-2.2 79.8 5.1 79.35Q-45.9 75.55 -60.6 50.3L-64.7 43.4L-56.05 41.95Q-53.85 45.65 -50.25 50Q-32.2 72.1 21 57.85Q-34.85 68.4 -51.15 44.85L-53.7 41.2L-45.35 38.35L-42.05 40.95Q-17.75 61.45 29.75 36.85Q19.85 40.9 12.75 42.9Q5.95 44.75 -1 46Q-8.35 47.35 -16.2 46.35Q-24.05 45.3 -31.5 43.3Q-38.9 41.25 -42.55 37.05L-34.25 34.05Q-24.55 30.7 -16.75 24.5Q-12.1 20.75 -8.6 15.6" />
-            </g>
+<!-- ======================================================
+     LOADER
+======================================================= -->
 
-            <g id="Espina">
-                <linearGradient id="LinearGradID_2" gradientUnits="userSpaceOnUse"
-                    gradientTransform="matrix(0.0229492, 0, 0, -0.0152893, 0, 0.05)" spreadMethod="pad" x1="-819.2"
-                    y1="0" x2="819.2" y2="0">
-                    <stop offset="0" style="stop-color: #00ffde; stop-opacity: 1" />
-                    <stop offset="1" style="stop-color: #120626; stop-opacity: 1" />
-                </linearGradient>
-                <path style="fill: url(#LinearGradID_2); stroke: #00ffde; stroke-width: 0.2;"
-                    d="M-18.8,0Q-17.85 -5.7 -12.3 -9.6Q-11.2 -5.35 -6.5 -8.25L-6.45 -8.2L-6.2 -8.3Q1.25 -16.25 6.65 -12.4Q0.05 -12.55 0 -5.95Q2.7 -2.4 7.75 -4.1Q18 -1.45 18.8 0L-18.8 0" />
-                <linearGradient id="LinearGradID_3" gradientUnits="userSpaceOnUse"
-                    gradientTransform="matrix(0.0229492, 0, 0, 0.0152893, 0, -0.05)" spreadMethod="pad" x1="-819.2"
-                    y1="0" x2="819.2" y2="0">
-                    <stop offset="0" style="stop-color: #00ffde; stop-opacity: 1" />
-                    <stop offset="1" style="stop-color: #120626; stop-opacity: 1" />
-                </linearGradient>
-                <path style="fill: url(#LinearGradID_3); stroke: #00ffde; stroke-width: 0.2;"
-                    d="M18.8,0Q18 1.45 7.75 4.1Q2.7 2.4 0 5.95Q0.05 12.55 6.65 12.4Q1.25 16.25 -6.2 8.35Q-6.35 8.25 -6.45 8.25L-6.5 8.25Q-11.2 5.35 -12.3 9.6Q-17.85 5.7 -18.8 0L18.8 0" />
-            </g>
-        </defs>
+<div class="loader" id="loader">
+    <div class="loader-content">
+        <div class="loader-logo">
+            <span>MR.</span> ENGLISH
+        </div>
+        <div class="loader-circle"></div>
+    </div>
+</div>
 
-        <g id="particles-group" />
-        <g id="screen" />
-    </svg>
 
-    <script>
-        "use strict";
+<!-- ======================================================
+     MAIN WEBSITE
+======================================================= -->
 
-        const svg = document.getElementById("svg-canvas");
-        const screen = document.getElementById("screen");
-        const particlesGroup = document.getElementById("particles-group");
-        const xmlns = "http://www.w3.org/2000/svg";
+<div id="mainWebsite">
 
-        let width = window.innerWidth;
-        let height = window.innerHeight;
+<header class="navbar">
 
-        const pointer = { x: width / 2, y: height / 2 };
-        const targetPointer = { x: width / 2, y: height / 2 };
+    <a href="#" class="logo">
+        <span>MR.</span> ENGLISH
+    </a>
 
-        let radm = Math.min(width, height) / 2 - 20;
-        let frm = Math.random();
-        let rad = 0;
-        const N = 45;
-        const elems = [];
-        const fireParticles = [];
+    <nav class="nav-links">
+        <a href="#home">الرئيسية</a>
+        <a href="#courses">الكورسات</a>
+        <a href="#features">المميزات</a>
+        <a href="#about">عن المستر</a>
+        <a href="#contact">تواصل معنا</a>
+    </nav>
 
-        // Touch support
-        window.addEventListener("pointermove", (e) => {
-            targetPointer.x = e.clientX;
-            targetPointer.y = e.clientY;
-            rad = 0;
-        }, { passive: true });
+    <div class="nav-actions">
 
-        window.addEventListener("touchmove", (e) => {
-            e.preventDefault();
-            const t = e.touches[0];
-            targetPointer.x = t.clientX;
-            targetPointer.y = t.clientY;
-            rad = 0;
-        }, { passive: false });
+        <button class="btn btn-light" id="accountButton" onclick="openLogin()">
+            تسجيل الدخول
+        </button>
 
-        window.addEventListener("click", (e) => {
-            document.body.classList.add("clicked");
-            setTimeout(() => document.body.classList.remove("clicked"), 500);
-            const head = elems[1];
-            const nextNode = elems[2];
-            const angle = Math.atan2(head.y - nextNode.y, head.x - nextNode.x) + Math.PI;
-            for (let i = 0; i < 15; i++) {
-                createFireParticle(head.x, head.y, angle);
+        <button class="menu-btn">
+            ☰
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-text">
+
+        <div class="hero-badge">
+            🚀 منصة تعليمية مختلفة
+        </div>
+
+        <h1>
+            الإنجليزي
+            <span>بقى أسهل!</span>
+        </h1>
+
+        <p class="hero-description">
+            منصة Mr. English التعليمية تساعدك تتعلم الإنجليزية
+            بطريقة بسيطة ومنظمة، مع كورسات وفيديوهات واختبارات
+            ومتابعة مستمرة.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#courses" class="btn btn-primary hero-btn">
+                ابدأ التعلم الآن 🚀
+            </a>
+
+            <a href="#about" class="btn btn-light hero-btn">
+                تعرف على المستر
+            </a>
+
+        </div>
+
+        <div class="hero-stats">
+
+            <div class="hero-stat">
+                <strong id="heroStudents">+1000</strong>
+                <span>طالب</span>
+            </div>
+
+            <div class="hero-stat">
+                <strong id="heroCourses">+50</strong>
+                <span>كورس</span>
+            </div>
+
+            <div class="hero-stat">
+                <strong>+5</strong>
+                <span>سنوات خبرة</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+        <div class="glow"></div>
+
+        <div class="float-box float-1">
+            🎓 تعلم بسهولة
+        </div>
+
+        <div class="teacher-profile">
+
+            <div class="teacher-photo">
+                👨‍🏫
+            </div>
+
+            <h2>Mr. English</h2>
+
+            <div class="teacher-role">
+                English Teacher
+            </div>
+
+            <div class="teacher-divider"></div>
+
+            <div class="teacher-rating">
+                ⭐ ⭐ ⭐ ⭐ ⭐
+            </div>
+
+            <p style="margin-top:15px;color:#788398;font-size:13px;">
+                تعليم • متابعة • تدريبات • نجاح
+            </p>
+
+        </div>
+
+        <div class="float-box float-2">
+            📚 +50 كورس
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- COURSES -->
+
+<section class="section courses" id="courses">
+
+    <div class="section-header">
+
+        <div class="section-label">
+            📚 الكورسات
+        </div>
+
+        <h2>
+            اختار كورسك وابدأ
+            <span>رحلتك</span>
+        </h2>
+
+        <p>
+            كورسات منظمة ومناسبة لكل مرحلة.
+        </p>
+
+    </div>
+
+    <div class="course-grid" id="publicCourses"></div>
+
+</section>
+
+
+<!-- FEATURES -->
+
+<section class="section features" id="features">
+
+    <div class="section-header">
+
+        <div class="section-label">
+            ⚡ لماذا Mr. English؟
+        </div>
+
+        <h2>
+            كل اللي تحتاجه
+            <span>في مكان واحد</span>
+        </h2>
+
+    </div>
+
+    <div class="features-grid">
+
+        <div class="feature">
+            <div class="feature-icon">🎥</div>
+            <h3>فيديوهات شرح</h3>
+            <p>دروس مرتبة وسهلة تقدر ترجع لها في أي وقت.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">📝</div>
+            <h3>تدريبات واختبارات</h3>
+            <p>اختبر نفسك وتابع مستواك باستمرار.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">📱</div>
+            <h3>موبايل وكمبيوتر</h3>
+            <p>المنصة مصممة لتعمل على جميع الأجهزة.</p>
+        </div>
+
+        <div class="feature">
+            <div class="feature-icon">🏆</div>
+            <h3>تطور مستواك</h3>
+            <p>تعلم خطوة بخطوة حتى تصل لأفضل مستوى.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section class="section about" id="about">
+
+    <div class="about-container">
+
+        <div class="about-avatar">
+            👨‍🏫
+        </div>
+
+        <div class="about-content">
+
+            <span>عن المستر</span>
+
+            <h2>
+                مش هدفنا تحفظ الإنجليزي...
+                هدفنا إنك تفهمه.
+            </h2>
+
+            <p>
+                في Mr. English بنحاول نخلي تعلم اللغة بسيط وممتع،
+                من خلال شرح واضح، تدريبات، اختبارات ومتابعة.
+                كل ده في منصة واحدة تساعد الطالب يتطور خطوة بخطوة.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section class="section contact" id="contact">
+
+    <div class="section-header">
+
+        <div class="section-label">
+            📞 تواصل معنا
+        </div>
+
+        <h2>جاهز تبدأ؟</h2>
+
+        <p>
+            تواصل معانا لمعرفة تفاصيل الكورسات.
+        </p>
+
+    </div>
+
+    <div class="contact-grid">
+
+        <a class="contact-card" href="#">
+            <div>💬</div>
+            WhatsApp
+        </a>
+
+        <a class="contact-card" href="#">
+            <div>📘</div>
+            Facebook
+        </a>
+
+        <a class="contact-card" href="#">
+            <div>✈️</div>
+            Telegram
+        </a>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="logo">
+        <span>MR.</span> ENGLISH
+    </div>
+
+    <p>
+        © 2026 Mr. English — جميع الحقوق محفوظة
+    </p>
+
+</footer>
+
+</div>
+
+
+<!-- ======================================================
+     LOGIN MODAL
+======================================================= -->
+
+<div class="modal" id="loginModal">
+
+    <div class="modal-box">
+
+        <button class="close-modal" onclick="closeModal('loginModal')">
+            ×
+        </button>
+
+        <div class="modal-icon">
+            🎓
+        </div>
+
+        <h2 id="loginTitle">
+            أهلاً بيك 👋
+        </h2>
+
+        <p>
+            سجل دخولك للوصول إلى حسابك والكورسات.
+        </p>
+
+
+        <div class="form-group">
+            <label>الاسم</label>
+            <input id="loginName" type="text" placeholder="اكتب اسمك">
+        </div>
+
+        <div class="form-group">
+            <label>البريد الإلكتروني</label>
+            <input id="loginEmail" type="email" placeholder="example@email.com">
+        </div>
+
+        <div class="form-group">
+            <label>كلمة المرور</label>
+            <input id="loginPassword" type="password" placeholder="••••••••">
+        </div>
+
+        <button class="form-submit" onclick="studentLogin()">
+            دخول 🚀
+        </button>
+
+        <div class="switch-login">
+            أنت Admin؟
+            <button onclick="openAdminLogin()">
+                دخول لوحة الإدارة
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     ADMIN LOGIN
+======================================================= -->
+
+<div class="modal" id="adminLoginModal">
+
+    <div class="modal-box">
+
+        <button class="close-modal" onclick="closeModal('adminLoginModal')">
+            ×
+        </button>
+
+        <div class="modal-icon">
+            🔐
+        </div>
+
+        <h2>
+            لوحة الإدارة
+        </h2>
+
+        <p>
+            دخول خاص بمسؤول المنصة.
+        </p>
+
+        <div class="form-group">
+            <label>اسم المستخدم</label>
+            <input id="adminUsername" type="text" placeholder="admin">
+        </div>
+
+        <div class="form-group">
+            <label>كلمة المرور</label>
+            <input id="adminPassword" type="password" placeholder="••••••••">
+        </div>
+
+        <button class="form-submit" onclick="adminLogin()">
+            دخول لوحة التحكم 🔐
+        </button>
+
+        <p style="margin-top:15px;font-size:11px;color:#999;">
+            في النسخة التجريبية: admin / 123456
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     STUDENT AREA
+======================================================= -->
+
+<div class="student-area" id="studentArea">
+
+    <div class="student-header">
+
+        <div class="student-header-content">
+
+            <div>
+                <p>أهلاً بيك 👋</p>
+                <h1 id="studentWelcome">
+                    يا طالب
+                </h1>
+                <p>
+                    دي الكورسات المتاحة ليك.
+                </p>
+            </div>
+
+            <button class="btn btn-primary" onclick="logout()">
+                تسجيل الخروج
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="student-courses">
+
+        <div class="section-header" style="text-align:right;">
+            <div class="section-label">
+                📚 كورساتك
+            </div>
+            <h2>
+                ابدأ
+                <span>التعلم</span>
+            </h2>
+        </div>
+
+        <div class="student-course-grid" id="studentCourses"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     COURSE VIEW
+======================================================= -->
+
+<div class="course-view" id="courseView">
+
+    <div class="course-view-header">
+
+        <div class="course-view-header-inner">
+
+            <button class="btn btn-light" onclick="backToStudent()">
+                ← رجوع للكورسات
+            </button>
+
+            <h1 id="viewCourseTitle">
+                اسم الكورس
+            </h1>
+
+            <p id="viewCourseDescription">
+                وصف الكورس
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="lessons" id="lessonsContainer"></div>
+
+</div>
+
+
+<!-- ======================================================
+     ADMIN DASHBOARD
+======================================================= -->
+
+<div class="dashboard" id="adminDashboard">
+
+    <div class="dashboard-nav">
+
+        <div class="logo">
+            <span>MR.</span> ENGLISH
+        </div>
+
+        <div class="dashboard-user">
+
+            <div class="user-avatar">
+                👨‍💼
+            </div>
+
+            <strong>
+                Admin
+            </strong>
+
+            <button class="btn btn-danger" onclick="adminLogout()">
+                خروج
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <main class="dashboard-main">
+
+        <div class="dashboard-title">
+
+            <h1>
+                لوحة التحكم 👋
+            </h1>
+
+            <p>
+                إدارة المنصة والكورسات والطلاب.
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-stats">
+
+            <div class="dashboard-stat">
+                <span>إجمالي الكورسات</span>
+                <strong id="statCourses">0</strong>
+            </div>
+
+            <div class="dashboard-stat">
+                <span>إجمالي الطلاب</span>
+                <strong id="statStudents">0</strong>
+            </div>
+
+            <div class="dashboard-stat">
+                <span>الدروس</span>
+                <strong id="statLessons">0</strong>
+            </div>
+
+            <div class="dashboard-stat">
+                <span>حالة المنصة</span>
+                <strong style="font-size:19px;color:#19b878;">
+                    ● Online
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="admin-layout">
+
+            <aside class="sidebar">
+
+                <button class="active" onclick="showAdminPanel('coursesPanel')">
+                    📚 الكورسات
+                </button>
+
+                <button onclick="showAdminPanel('studentsPanel')">
+                    👨‍🎓 الطلاب
+                </button>
+
+                <button onclick="showAdminPanel('settingsPanel')">
+                    ⚙️ الإعدادات
+                </button>
+
+            </aside>
+
+
+            <section class="dashboard-panel">
+
+
+                <!-- COURSES PANEL -->
+
+                <div id="coursesPanel">
+
+                    <div class="panel-header">
+
+                        <h2>
+                            إدارة الكورسات
+                        </h2>
+
+                        <button class="btn btn-primary" onclick="openAddCourse()">
+                            + إضافة كورس
+                        </button>
+
+                    </div>
+
+                    <div class="admin-courses" id="adminCourses"></div>
+
+                </div>
+
+
+                <!-- STUDENTS PANEL -->
+
+                <div id="studentsPanel" style="display:none;">
+
+                    <div class="panel-header">
+                        <h2>
+                            الطلاب المسجلين
+                        </h2>
+                    </div>
+
+                    <div id="studentsList"></div>
+
+                </div>
+
+
+                <!-- SETTINGS -->
+
+                <div id="settingsPanel" style="display:none;">
+
+                    <div class="panel-header">
+                        <h2>
+                            إعدادات المنصة
+                        </h2>
+                    </div>
+
+                    <p style="color:#788398;line-height:2;">
+                        من هنا لاحقًا نقدر نضيف إعدادات اسم المستر،
+                        اللوجو، ألوان الموقع، روابط التواصل،
+                        بيانات الدفع وغيرها.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- ======================================================
+     ADD COURSE MODAL
+======================================================= -->
+
+<div class="modal" id="courseModal">
+
+    <div class="modal-box">
+
+        <button class="close-modal" onclick="closeModal('courseModal')">
+            ×
+        </button>
+
+        <div class="modal-icon">
+            📚
+        </div>
+
+        <h2>
+            إضافة كورس جديد
+        </h2>
+
+        <p>
+            أضف بيانات الكورس.
+        </p>
+
+        <div class="form-group">
+            <label>اسم الكورس</label>
+            <input id="courseName" type="text" placeholder="مثال: English للمرحلة الإعدادية">
+        </div>
+
+        <div class="form-group">
+            <label>وصف الكورس</label>
+            <textarea id="courseDescription" placeholder="اكتب وصف الكورس..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>المرحلة</label>
+
+            <select id="courseLevel">
+
+                <option value="ابتدائي">
+                    ابتدائي
+                </option>
+
+                <option value="إعدادي">
+                    إعدادي
+                </option>
+
+                <option value="ثانوي">
+                    ثانوي
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+            <label>الأيقونة</label>
+            <input id="courseIcon" type="text" value="📚">
+        </div>
+
+        <button class="form-submit" onclick="addCourse()">
+            نشر الكورس 🚀
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     LESSON MODAL
+======================================================= -->
+
+<div class="modal" id="lessonModal">
+
+    <div class="modal-box">
+
+        <button class="close-modal" onclick="closeModal('lessonModal')">
+            ×
+        </button>
+
+        <div class="modal-icon">
+            🎥
+        </div>
+
+        <h2>
+            إضافة درس
+        </h2>
+
+        <p>
+            أضف فيديو أو درس جديد للكورس.
+        </p>
+
+        <div class="form-group">
+            <label>اسم الدرس</label>
+            <input id="lessonName" type="text" placeholder="مثال: Introduction">
+        </div>
+
+        <div class="form-group">
+            <label>رابط الفيديو</label>
+            <input id="lessonVideo" type="url" placeholder="https://youtube.com/...">
+        </div>
+
+        <div class="form-group">
+            <label>مدة الفيديو</label>
+            <input id="lessonDuration" type="text" placeholder="25 دقيقة">
+        </div>
+
+        <button class="form-submit" onclick="addLesson()">
+            إضافة الدرس 🎬
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================================
+   DATABASE
+========================================================= */
+
+const defaultCourses = [
+
+    {
+        id:1,
+        name:"English للمرحلة الابتدائية",
+        description:"تأسيس قوي في اللغة الإنجليزية بطريقة سهلة وممتعة.",
+        level:"ابتدائي",
+        icon:"📘",
+        featured:false,
+        lessons:[
+            {
+                name:"Introduction",
+                duration:"18 دقيقة",
+                video:""
+            },
+            {
+                name:"Basic English",
+                duration:"25 دقيقة",
+                video:""
             }
+        ]
+    },
+
+    {
+        id:2,
+        name:"English للمرحلة الإعدادية",
+        description:"شرح المنهج + تدريبات + مراجعات قبل الامتحانات.",
+        level:"إعدادي",
+        icon:"🚀",
+        featured:true,
+        lessons:[
+            {
+                name:"Unit 1",
+                duration:"30 دقيقة",
+                video:""
+            },
+            {
+                name:"Grammar",
+                duration:"35 دقيقة",
+                video:""
+            },
+            {
+                name:"Exercises",
+                duration:"20 دقيقة",
+                video:""
+            }
+        ]
+    },
+
+    {
+        id:3,
+        name:"English للمرحلة الثانوية",
+        description:"شرح متقدم وتدريب مستمر للوصول لأفضل نتيجة.",
+        level:"ثانوي",
+        icon:"🎯",
+        featured:false,
+        lessons:[
+            {
+                name:"Advanced Grammar",
+                duration:"40 دقيقة",
+                video:""
+            }
+        ]
+    }
+
+];
+
+
+if(!localStorage.getItem("mrEnglishCourses")){
+    localStorage.setItem(
+        "mrEnglishCourses",
+        JSON.stringify(defaultCourses)
+    );
+}
+
+
+function getCourses(){
+
+    return JSON.parse(
+        localStorage.getItem("mrEnglishCourses")
+    ) || [];
+
+}
+
+
+function saveCourses(courses){
+
+    localStorage.setItem(
+        "mrEnglishCourses",
+        JSON.stringify(courses)
+    );
+
+}
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+function showToast(message){
+
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },3000);
+
+}
+
+
+function closeModal(id){
+
+    document.getElementById(id).classList.remove("active");
+
+}
+
+
+function openModal(id){
+
+    document.getElementById(id).classList.add("active");
+
+}
+
+
+/* =========================================================
+   LOADER
+========================================================= */
+
+window.addEventListener("load",()=>{
+
+    setTimeout(()=>{
+
+        document
+        .getElementById("loader")
+        .classList.add("hide");
+
+    },700);
+
+});
+
+
+/* =========================================================
+   PUBLIC COURSES
+========================================================= */
+
+function renderPublicCourses(){
+
+    const container =
+        document.getElementById("publicCourses");
+
+    const courses = getCourses();
+
+    container.innerHTML = "";
+
+    courses.forEach(course=>{
+
+        container.innerHTML += `
+
+            <article class="course-card ${course.featured ? "featured":""}">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        ${course.icon}
+                    </div>
+
+                    ${
+                        course.featured
+                        ?
+                        `<span class="course-badge">
+                            🔥 الأكثر طلباً
+                        </span>`
+                        :
+                        `<span class="course-badge">
+                            ${course.level}
+                        </span>`
+                    }
+
+                </div>
+
+                <h3>
+                    ${course.name}
+                </h3>
+
+                <p>
+                    ${course.description}
+                </p>
+
+                <div class="course-info">
+
+                    <span>
+                        🎥 ${course.lessons.length} درس
+                    </span>
+
+                    <span>
+                        📝 تدريبات
+                    </span>
+
+                </div>
+
+                <button
+                    class="course-button"
+                    onclick="openCourse(${course.id})">
+
+                    مشاهدة الكورس 🚀
+
+                </button>
+
+            </article>
+
+        `;
+
+    });
+
+    document.getElementById("heroCourses").textContent =
+        "+" + courses.length;
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function openLogin(){
+
+    openModal("loginModal");
+
+}
+
+
+function studentLogin(){
+
+    const name =
+        document.getElementById("loginName").value.trim();
+
+    const email =
+        document.getElementById("loginEmail").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value.trim();
+
+
+    if(!name){
+
+        showToast("اكتب اسمك أولاً 👋");
+
+        return;
+
+    }
+
+
+    if(!email){
+
+        showToast("اكتب البريد الإلكتروني 📧");
+
+        return;
+
+    }
+
+
+    if(!password){
+
+        showToast("اكتب كلمة المرور 🔐");
+
+        return;
+
+    }
+
+
+    const students =
+        JSON.parse(
+            localStorage.getItem("mrEnglishStudents") || "[]"
+        );
+
+
+    const existing =
+        students.find(
+            student => student.email === email
+        );
+
+
+    if(existing){
+
+        existing.name = name;
+
+    }else{
+
+        students.push({
+            id:Date.now(),
+            name:name,
+            email:email
         });
 
-        window.addEventListener("touchend", (e) => {
-            const t = e.changedTouches[0];
-            document.body.classList.add("clicked");
-            setTimeout(() => document.body.classList.remove("clicked"), 500);
-            const head = elems[1];
-            const nextNode = elems[2];
-            const angle = Math.atan2(head.y - nextNode.y, head.x - nextNode.x) + Math.PI;
-            for (let i = 0; i < 15; i++) {
-                createFireParticle(head.x, head.y, angle);
-            }
-        });
+    }
 
-        const resize = () => {
-            width = window.innerWidth;
-            height = window.innerHeight;
-            radm = Math.min(width, height) / 2 - 20;
 
-            // Reposition fish to center on resize
-            for (let i = 0; i < N; i++) {
-                elems[i].x = width / 2;
-                elems[i].y = height / 2;
-            }
-            pointer.x = width / 2;
-            pointer.y = height / 2;
-            targetPointer.x = width / 2;
-            targetPointer.y = height / 2;
-        };
+    localStorage.setItem(
+        "mrEnglishStudents",
+        JSON.stringify(students)
+    );
 
-        window.addEventListener("resize", resize, false);
 
-        // Also handle visual viewport changes (mobile keyboard, etc.)
-        if (window.visualViewport) {
-            window.visualViewport.addEventListener("resize", resize);
-        }
+    localStorage.setItem(
+        "mrEnglishCurrentUser",
+        JSON.stringify({
+            name:name,
+            email:email
+        })
+    );
 
-        const prepend = (use, i) => {
-            const elem = document.createElementNS(xmlns, "use");
-            elems[i].use = elem;
-            elem.setAttribute("href", "#" + use);
-            screen.prepend(elem);
-        };
 
-        for (let i = 0; i < N; i++) {
-            elems[i] = { use: null, x: width / 2, y: height / 2 };
-        }
+    closeModal("loginModal");
 
-        for (let i = 1; i < N; i++) {
-            if (i === 1) prepend("Cabeza", i);
-            else if (i === 7 || i === 15) prepend("Aletas", i);
-            else prepend("Espina", i);
-        }
+    showStudentArea();
 
-        function createFireParticle(x, y, baseAngle) {
-            const p = document.createElementNS(xmlns, "circle");
-            const spread = (Math.random() - 0.5) * 0.6;
-            const angle = baseAngle + spread;
-            const speed = 5 + Math.random() * 8;
+    showToast("تم تسجيل الدخول بنجاح 🎉");
 
-            const particle = {
-                el: p,
-                x, y,
-                vx: Math.cos(angle) * speed,
-                vy: Math.sin(angle) * speed,
-                r: 8 + Math.random() * 12,
-                alpha: 1,
-                decay: 0.02 + Math.random() * 0.03
-            };
+}
 
-            p.setAttribute("cx", x);
-            p.setAttribute("cy", y);
-            p.setAttribute("r", particle.r);
-            const colors = ["#ff2a6d", "#ff5e00", "#00ffde", "#ff0055"];
-            p.setAttribute("fill", colors[Math.floor(Math.random() * colors.length)]);
-            p.style.mixBlendMode = "screen";
 
-            particlesGroup.appendChild(p);
-            fireParticles.push(particle);
-        }
+/* =========================================================
+   STUDENT AREA
+========================================================= */
 
-        const run = () => {
-            requestAnimationFrame(run);
+function showStudentArea(){
 
-            pointer.x += (targetPointer.x - pointer.x) * 0.2;
-            pointer.y += (targetPointer.y - pointer.y) * 0.2;
+    document
+    .getElementById("mainWebsite")
+    .style.display="none";
 
-            let e0 = elems[0];
-            const ax = (Math.cos(3 * frm) * rad * width) / height;
-            const ay = (Math.sin(4 * frm) * rad * height) / width;
-            e0.x += (ax + pointer.x - e0.x) / 10;
-            e0.y += (ay + pointer.y - e0.y) / 10;
+    document
+    .getElementById("studentArea")
+    .classList.add("active");
 
-            // Responsive scale factor based on screen size
-            const scaleFactor = Math.min(width, height) / 600;
+    document
+    .getElementById("courseView")
+    .classList.remove("active");
 
-            for (let i = 1; i < N; i++) {
-                let e = elems[i];
-                let ep = elems[i - 1];
-                const a = Math.atan2(e.y - ep.y, e.x - ep.x);
-                e.x += (ep.x - e.x + (Math.cos(a) * (110 - i)) / 5) / 3.5;
-                e.y += (ep.y - e.y + (Math.sin(a) * (110 - i)) / 5) / 3.5;
-                const s = ((162 + 4 * (1 - i)) / 55) * scaleFactor;
+    const user =
+        JSON.parse(
+            localStorage.getItem("mrEnglishCurrentUser")
+        );
 
-                e.use.setAttribute(
-                    "transform",
-                    `translate(${(ep.x + e.x) / 2},${(ep.y + e.y) / 2}) rotate(${(180 / Math.PI) * a}) scale(${s},${s})`
-                );
-            }
+    if(user){
 
-            if (rad < radm) rad++;
-            frm += 0.0025;
-            if (rad > 60) {
-                targetPointer.x += (width / 2 - targetPointer.x) * 0.03;
-                targetPointer.y += (height / 2 - targetPointer.y) * 0.03;
-            }
+        document
+        .getElementById("studentWelcome")
+        .textContent =
+        "يا " + user.name + " 👋";
 
-            for (let i = fireParticles.length - 1; i >= 0; i--) {
-                const p = fireParticles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                p.alpha -= p.decay;
-                p.r *= 0.96;
+    }
 
-                if (p.alpha <= 0 || p.r < 0.5) {
-                    p.el.remove();
-                    fireParticles.splice(i, 1);
-                } else {
-                    p.el.setAttribute("cx", p.x);
-                    p.el.setAttribute("cy", p.y);
-                    p.el.setAttribute("r", p.r);
-                    p.el.style.opacity = p.alpha;
+    renderStudentCourses();
+
+}
+
+
+function renderStudentCourses(){
+
+    const container =
+        document.getElementById("studentCourses");
+
+    const courses = getCourses();
+
+    container.innerHTML = "";
+
+    courses.forEach(course=>{
+
+        container.innerHTML += `
+
+            <article class="course-card">
+
+                <div class="course-top">
+
+                    <div class="course-icon">
+                        ${course.icon}
+                    </div>
+
+                    <span class="course-badge">
+                        ${course.level}
+                    </span>
+
+                </div>
+
+                <h3>
+                    ${course.name}
+                </h3>
+
+                <p>
+                    ${course.description}
+                </p>
+
+                <div class="course-info">
+
+                    <span>
+                        🎥 ${course.lessons.length} درس
+                    </span>
+
+                    <span>
+                        🚀 متاح
+                    </span>
+
+                </div>
+
+                <button
+                    class="course-button"
+                    onclick="openStudentCourse(${course.id})">
+
+                    دخول الكورس
+
+                </button>
+
+            </article>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   COURSE VIEW
+========================================================= */
+
+function openStudentCourse(id){
+
+    const course =
+        getCourses().find(c=>c.id===id);
+
+    if(!course) return;
+
+
+    document
+    .getElementById("studentArea")
+    .classList.remove("active");
+
+    document
+    .getElementById("courseView")
+    .classList.add("active");
+
+
+    document
+    .getElementById("viewCourseTitle")
+    .textContent = course.name;
+
+
+    document
+    .getElementById("viewCourseDescription")
+    .textContent = course.description;
+
+
+    const container =
+        document.getElementById("lessonsContainer");
+
+    container.innerHTML = "";
+
+
+    if(course.lessons.length===0){
+
+        container.innerHTML = `
+            <div class="empty">
+                لا توجد دروس مضافة لهذا الكورس حتى الآن 🎬
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    course.lessons.forEach((lesson,index)=>{
+
+        container.innerHTML += `
+
+            <div class="lesson">
+
+                <div class="lesson-number">
+                    ${index+1}
+                </div>
+
+                <div class="lesson-info">
+
+                    <h3>
+                        ${lesson.name}
+                    </h3>
+
+                    <span>
+                        🎥 ${lesson.duration || "فيديو"}
+                    </span>
+
+                </div>
+
+                ${
+                    lesson.video
+                    ?
+                    `<button
+                        class="lesson-btn"
+                        onclick="openVideo('${lesson.video}')">
+                        مشاهدة
+                    </button>`
+                    :
+                    `<button
+                        class="lesson-btn"
+                        onclick="showToast('الفيديو لم يتم رفعه بعد 🎥')">
+                        قريباً
+                    </button>`
                 }
-            }
-        };
 
-        run();
-    </script>
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+function openCourse(id){
+
+    const user =
+        localStorage.getItem("mrEnglishCurrentUser");
+
+    if(!user){
+
+        openLogin();
+
+        showToast("سجل دخولك الأول للوصول للكورس 👤");
+
+        return;
+
+    }
+
+    openStudentCourse(id);
+
+}
+
+
+function backToStudent(){
+
+    document
+    .getElementById("courseView")
+    .classList.remove("active");
+
+    document
+    .getElementById("studentArea")
+    .classList.add("active");
+
+}
+
+
+function openVideo(url){
+
+    if(!url){
+
+        showToast("الفيديو غير متاح حالياً");
+
+        return;
+
+    }
+
+    window.open(url,"_blank");
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout(){
+
+    localStorage.removeItem("mrEnglishCurrentUser");
+
+    document
+    .getElementById("studentArea")
+    .classList.remove("active");
+
+    document
+    .getElementById("courseView")
+    .classList.remove("active");
+
+    document
+    .getElementById("mainWebsite")
+    .style.display="block";
+
+    showToast("تم تسجيل الخروج 👋");
+
+}
+
+
+/* =========================================================
+   ADMIN LOGIN
+========================================================= */
+
+function openAdminLogin(){
+
+    closeModal("loginModal");
+
+    openModal("adminLoginModal");
+
+}
+
+
+function adminLogin(){
+
+    const username =
+        document
+        .getElementById("adminUsername")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("adminPassword")
+        .value
+        .trim();
+
+
+    /*
+        DEMO LOGIN
+
+        username: admin
+        password: 123456
+    */
+
+
+    if(
+        username === "admin" &&
+        password === "123456"
+    ){
+
+        localStorage.setItem(
+            "mrEnglishAdmin",
+            "true"
+        );
+
+        closeModal("adminLoginModal");
+
+        document
+        .getElementById("mainWebsite")
+        .style.display="none";
+
+        document
+        .getElementById("adminDashboard")
+        .classList.add("active");
+
+        renderAdmin();
+
+        showToast("أهلاً بيك يا Admin 🔐");
+
+    }else{
+
+        showToast("بيانات الدخول غير صحيحة ❌");
+
+    }
+
+}
+
+
+/* =========================================================
+   ADMIN DASHBOARD
+========================================================= */
+
+function renderAdmin(){
+
+    const courses = getCourses();
+
+    const students =
+        JSON.parse(
+            localStorage.getItem("mrEnglishStudents") || "[]"
+        );
+
+
+    let lessonCount = 0;
+
+    courses.forEach(course=>{
+        lessonCount += course.lessons.length;
+    });
+
+
+    document.getElementById("statCourses")
+    .textContent = courses.length;
+
+
+    document.getElementById("statStudents")
+    .textContent = students.length;
+
+
+    document.getElementById("statLessons")
+    .textContent = lessonCount;
+
+
+    renderAdminCourses();
+
+    renderStudents();
+
+}
+
+
+function renderAdminCourses(){
+
+    const container =
+        document.getElementById("adminCourses");
+
+    const courses = getCourses();
+
+    container.innerHTML = "";
+
+
+    if(courses.length===0){
+
+        container.innerHTML = `
+            <div class="empty">
+                لا توجد كورسات حتى الآن.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    courses.forEach(course=>{
+
+        container.innerHTML += `
+
+            <div class="admin-course">
+
+                <div class="admin-course-info">
+
+                    <div class="admin-course-icon">
+                        ${course.icon}
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            ${course.name}
+                        </strong>
+
+                        <div style="font-size:11px;color:#788398;">
+                            ${course.level}
+                            •
+                            ${course.lessons.length} درس
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-actions">
+
+                    <button
+                        class="small-btn btn-primary"
+                        onclick="openAddLesson(${course.id})">
+
+                        + درس
+
+                    </button>
+
+                    <button
+                        class="small-btn btn-danger"
+                        onclick="deleteCourse(${course.id})">
+
+                        حذف
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   ADD COURSE
+========================================================= */
+
+function openAddCourse(){
+
+    document.getElementById("courseName").value="";
+    document.getElementById("courseDescription").value="";
+    document.getElementById("courseLevel").value="ابتدائي";
+    document.getElementById("courseIcon").value="📚";
+
+    openModal("courseModal");
+
+}
+
+
+function addCourse(){
+
+    const name =
+        document
+        .getElementById("courseName")
+        .value
+        .trim();
+
+    const description =
+        document
+        .getElementById("courseDescription")
+        .value
+        .trim();
+
+    const level =
+        document
+        .getElementById("courseLevel")
+        .value;
+
+    const icon =
+        document
+        .getElementById("courseIcon")
+        .value
+        .trim() || "📚";
+
+
+    if(!name){
+
+        showToast("اكتب اسم الكورس ❌");
+
+        return;
+
+    }
+
+
+    const courses = getCourses();
+
+
+    courses.push({
+
+        id:Date.now(),
+
+        name:name,
+
+        description:
+            description ||
+            "كورس تعليمي متكامل.",
+
+        level:level,
+
+        icon:icon,
+
+        featured:false,
+
+        lessons:[]
+
+    });
+
+
+    saveCourses(courses);
+
+    closeModal("courseModal");
+
+    renderAdmin();
+
+    renderPublicCourses();
+
+    showToast("تم نشر الكورس بنجاح 🚀");
+
+}
+
+
+/* =========================================================
+   DELETE COURSE
+========================================================= */
+
+function deleteCourse(id){
+
+    if(!confirm("هل أنت متأكد من حذف الكورس؟")){
+
+        return;
+
+    }
+
+
+    const courses =
+        getCourses().filter(
+            course=>course.id!==id
+        );
+
+
+    saveCourses(courses);
+
+    renderAdmin();
+
+    renderPublicCourses();
+
+    showToast("تم حذف الكورس 🗑️");
+
+}
+
+
+/* =========================================================
+   ADD LESSON
+========================================================= */
+
+let selectedCourseId = null;
+
+
+function openAddLesson(courseId){
+
+    selectedCourseId = courseId;
+
+    document.getElementById("lessonName").value="";
+    document.getElementById("lessonVideo").value="";
+    document.getElementById("lessonDuration").value="";
+
+    openModal("lessonModal");
+
+}
+
+
+function addLesson(){
+
+    if(!selectedCourseId) return;
+
+
+    const name =
+        document
+        .getElementById("lessonName")
+        .value
+        .trim();
+
+    const video =
+        document
+        .getElementById("lessonVideo")
+        .value
+        .trim();
+
+    const duration =
+        document
+        .getElementById("lessonDuration")
+        .value
+        .trim();
+
+
+    if(!name){
+
+        showToast("اكتب اسم الدرس ❌");
+
+        return;
+
+    }
+
+
+    const courses = getCourses();
+
+    const course =
+        courses.find(
+            c=>c.id===selectedCourseId
+        );
+
+
+    if(!course) return;
+
+
+    course.lessons.push({
+
+        name:name,
+
+        video:video,
+
+        duration:duration || "فيديو"
+
+    });
+
+
+    saveCourses(courses);
+
+    closeModal("lessonModal");
+
+    renderAdmin();
+
+    renderPublicCourses();
+
+    showToast("تم إضافة الدرس 🎬");
+
+}
+
+
+/* =========================================================
+   STUDENTS
+========================================================= */
+
+function renderStudents(){
+
+    const container =
+        document.getElementById("studentsList");
+
+
+    const students =
+        JSON.parse(
+            localStorage.getItem("mrEnglishStudents") || "[]"
+        );
+
+
+    if(students.length===0){
+
+        container.innerHTML = `
+            <div class="empty">
+                لا يوجد طلاب مسجلين حتى الآن 👨‍🎓
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    students.forEach((student,index)=>{
+
+        container.innerHTML += `
+
+            <div
+                style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                padding:16px;
+                border-bottom:1px solid #edf0f4;
+                "
+            >
+
+                <div>
+
+                    <strong>
+                        ${index+1}. ${student.name}
+                    </strong>
+
+                    <div style="font-size:11px;color:#788398;">
+                        ${student.email}
+                    </div>
+
+                </div>
+
+                <span style="font-size:11px;color:#19b878;">
+                    ● مسجل
+                </span>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =========================================================
+   ADMIN PANELS
+========================================================= */
+
+function showAdminPanel(panel){
+
+    document
+    .getElementById("coursesPanel")
+    .style.display="none";
+
+    document
+    .getElementById("studentsPanel")
+    .style.display="none";
+
+    document
+    .getElementById("settingsPanel")
+    .style.display="none";
+
+
+    document
+    .getElementById(panel)
+    .style.display="block";
+
+
+    document
+    .querySelectorAll(".sidebar button")
+    .forEach(button=>{
+        button.classList.remove("active");
+    });
+
+
+    event.target.classList.add("active");
+
+}
+
+
+/* =========================================================
+   ADMIN LOGOUT
+========================================================= */
+
+function adminLogout(){
+
+    localStorage.removeItem("mrEnglishAdmin");
+
+    document
+    .getElementById("adminDashboard")
+    .classList.remove("active");
+
+    document
+    .getElementById("mainWebsite")
+    .style.display="block";
+
+    showToast("تم تسجيل الخروج من لوحة الإدارة 👋");
+
+}
+
+
+/* =========================================================
+   AUTO SESSION
+========================================================= */
+
+window.addEventListener("DOMContentLoaded",()=>{
+
+    renderPublicCourses();
+
+
+    const currentUser =
+        localStorage.getItem(
+            "mrEnglishCurrentUser"
+        );
+
+
+    const admin =
+        localStorage.getItem(
+            "mrEnglishAdmin"
+        );
+
+
+    if(admin==="true"){
+
+        document
+        .getElementById("mainWebsite")
+        .style.display="none";
+
+        document
+        .getElementById("adminDashboard")
+        .classList.add("active");
+
+        renderAdmin();
+
+    }
+
+    else if(currentUser){
+
+        showStudentArea();
+
+    }
+
+});
+
+</script>
+
 </body>
 </html>
