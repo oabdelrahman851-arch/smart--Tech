@@ -3,3731 +3,678 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MR. ENGLISH | منصة التعليم</title>
-
+<title>مسبوكة — مجسمات مطبوعة بتقنية ثلاثية الأبعاد</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:"Cairo",sans-serif;
-    background:#f5f7fb;
-    color:#172033;
-    overflow-x:hidden;
-}
-
-button,
-input,
-textarea,
-select{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-
-/* =========================================================
-   VARIABLES
-========================================================= */
-
-:root{
-    --primary:#ff6b35;
-    --primary-dark:#e95420;
-    --navy:#111c35;
-    --navy-2:#182642;
-    --text:#172033;
-    --muted:#788398;
-    --white:#ffffff;
-    --bg:#f5f7fb;
-    --border:#e8ebf2;
-    --green:#19b878;
-    --red:#ef476f;
-    --shadow:0 20px 60px rgba(17,28,53,.10);
-}
-
-
-/* =========================================================
-   LOADER
-========================================================= */
-
-.loader{
-    position:fixed;
-    inset:0;
-    background:var(--navy);
-    z-index:99999;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:.5s;
-}
-
-.loader.hide{
-    opacity:0;
-    pointer-events:none;
-}
-
-.loader-content{
-    text-align:center;
-    color:white;
-}
-
-.loader-logo{
-    font-size:42px;
-    font-weight:900;
-    direction:ltr;
-}
-
-.loader-logo span{
-    color:var(--primary);
-}
-
-.loader-circle{
-    width:45px;
-    height:45px;
-    border:4px solid rgba(255,255,255,.15);
-    border-top-color:var(--primary);
-    border-radius:50%;
-    margin:25px auto 0;
-    animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-    to{transform:rotate(360deg)}
-}
-
-
-/* =========================================================
-   NAVBAR
-========================================================= */
-
-.navbar{
-    position:fixed;
-    top:0;
-    right:0;
-    left:0;
-    height:78px;
-    background:rgba(255,255,255,.88);
-    backdrop-filter:blur(18px);
-    border-bottom:1px solid rgba(0,0,0,.05);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 6%;
-    z-index:5000;
-}
-
-.logo{
-    font-size:23px;
-    font-weight:900;
-    direction:ltr;
-    color:var(--navy);
-}
-
-.logo span{
-    color:var(--primary);
-}
-
-.nav-links{
-    display:flex;
-    align-items:center;
-    gap:30px;
-}
-
-.nav-links a{
-    font-size:14px;
-    font-weight:700;
-    color:#566176;
-    transition:.25s;
-}
-
-.nav-links a:hover{
-    color:var(--primary);
-}
-
-.nav-actions{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.btn{
-    border:0;
-    border-radius:12px;
-    padding:11px 20px;
-    font-weight:800;
-    transition:.25s;
-}
-
-.btn-primary{
-    background:var(--primary);
-    color:white;
-    box-shadow:0 8px 22px rgba(255,107,53,.22);
-}
-
-.btn-primary:hover{
-    transform:translateY(-2px);
-    background:var(--primary-dark);
-}
-
-.btn-dark{
-    background:var(--navy);
-    color:white;
-}
-
-.btn-light{
-    background:#f1f3f7;
-    color:var(--navy);
-}
-
-.btn-danger{
-    background:#fff0f3;
-    color:var(--red);
-}
-
-.menu-btn{
-    display:none;
-    border:0;
-    background:#f2f4f8;
-    width:43px;
-    height:43px;
-    border-radius:12px;
-    font-size:20px;
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-    min-height:100vh;
-    padding:150px 8% 80px;
-    display:grid;
-    grid-template-columns:1.1fr .9fr;
-    align-items:center;
-    gap:70px;
-    background:
-        radial-gradient(circle at 80% 20%,rgba(255,107,53,.16),transparent 28%),
-        radial-gradient(circle at 10% 70%,rgba(34,85,255,.07),transparent 25%),
-        #f7f9fc;
-}
-
-.hero-text{
-    position:relative;
-    z-index:2;
-}
-
-.hero-badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:#fff0e9;
-    color:var(--primary);
-    padding:9px 17px;
-    border-radius:50px;
-    font-size:13px;
-    font-weight:800;
-    margin-bottom:22px;
-}
-
-.hero h1{
-    font-size:clamp(48px,6vw,82px);
-    line-height:1.08;
-    letter-spacing:-2px;
-    margin-bottom:25px;
-}
-
-.hero h1 span{
-    color:var(--primary);
-}
-
-.hero-description{
-    max-width:620px;
-    color:var(--muted);
-    font-size:18px;
-    line-height:2;
-    margin-bottom:32px;
-}
-
-.hero-buttons{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-}
-
-.hero-btn{
-    padding:15px 27px;
-    border-radius:14px;
-    font-weight:800;
-}
-
-.hero-stats{
-    display:flex;
-    gap:45px;
-    margin-top:45px;
-}
-
-.hero-stat strong{
-    display:block;
-    font-size:27px;
-}
-
-.hero-stat span{
-    color:var(--muted);
-    font-size:13px;
-}
-
-
-/* =========================================================
-   HERO VISUAL
-========================================================= */
-
-.hero-visual{
-    position:relative;
-    min-height:520px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.glow{
-    position:absolute;
-    width:350px;
-    height:350px;
-    border-radius:50%;
-    background:rgba(255,107,53,.13);
-    filter:blur(10px);
-}
-
-.teacher-profile{
-    position:relative;
-    width:330px;
-    min-height:410px;
-    background:white;
-    border:1px solid rgba(255,255,255,.8);
-    border-radius:35px;
-    padding:40px 25px;
-    text-align:center;
-    box-shadow:0 35px 90px rgba(17,28,53,.15);
-    z-index:2;
-}
-
-.teacher-photo{
-    width:135px;
-    height:135px;
-    margin:auto;
-    border-radius:50%;
-    background:linear-gradient(135deg,#fff0e9,#ffd4c2);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:70px;
-    border:7px solid white;
-    box-shadow:0 15px 35px rgba(0,0,0,.10);
-}
-
-.teacher-profile h2{
-    margin-top:20px;
-    font-size:27px;
-}
-
-.teacher-role{
-    color:var(--primary);
-    font-weight:800;
-    font-size:14px;
-}
-
-.teacher-divider{
-    height:1px;
-    background:#edf0f4;
-    margin:25px 0;
-}
-
-.teacher-rating{
-    display:flex;
-    justify-content:center;
-    gap:8px;
-    font-weight:800;
-}
-
-.float-box{
-    position:absolute;
-    background:white;
-    padding:15px 18px;
-    border-radius:16px;
-    box-shadow:0 20px 45px rgba(0,0,0,.12);
-    font-weight:800;
-    z-index:5;
-    animation:float 3s ease-in-out infinite;
-}
-
-.float-1{
-    top:70px;
-    right:0;
-}
-
-.float-2{
-    bottom:70px;
-    left:0;
-    animation-delay:1s;
-}
-
-@keyframes float{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-10px)}
-}
-
-
-/* =========================================================
-   SECTIONS
-========================================================= */
-
-.section{
-    padding:110px 8%;
-}
-
-.section-header{
-    text-align:center;
-    margin-bottom:55px;
-}
-
-.section-label{
-    color:var(--primary);
-    font-weight:900;
-    font-size:14px;
-}
-
-.section-header h2{
-    font-size:42px;
-    margin:8px 0;
-}
-
-.section-header h2 span{
-    color:var(--primary);
-}
-
-.section-header p{
-    color:var(--muted);
-}
-
-
-/* =========================================================
-   COURSES
-========================================================= */
-
-.courses{
-    background:white;
-}
-
-.course-grid{
-    max-width:1200px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:25px;
-}
-
-.course-card{
-    position:relative;
-    background:white;
-    border:1px solid var(--border);
-    border-radius:24px;
-    padding:27px;
-    overflow:hidden;
-    transition:.3s;
-}
-
-.course-card:hover{
-    transform:translateY(-8px);
-    box-shadow:var(--shadow);
-}
-
-.course-card.featured{
-    border:2px solid var(--primary);
-}
-
-.course-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.course-icon{
-    width:60px;
-    height:60px;
-    border-radius:17px;
-    background:#fff0e9;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:29px;
-}
-
-.course-badge{
-    font-size:11px;
-    background:#fff0e9;
-    color:var(--primary);
-    padding:6px 10px;
-    border-radius:30px;
-    font-weight:800;
-}
-
-.course-card h3{
-    font-size:21px;
-    margin:20px 0 10px;
-}
-
-.course-card p{
-    color:var(--muted);
-    line-height:1.8;
-    min-height:58px;
-    font-size:14px;
-}
-
-.course-info{
-    display:flex;
-    gap:17px;
-    margin:20px 0;
-    color:#657089;
-    font-size:12px;
-}
-
-.course-button{
-    width:100%;
-    padding:13px;
-    border:0;
-    background:var(--navy);
-    color:white;
-    border-radius:12px;
-    font-weight:800;
-}
-
-.course-button:hover{
-    background:var(--primary);
-}
-
-
-/* =========================================================
-   FEATURES
-========================================================= */
-
-.features{
-    background:#f7f9fc;
-}
-
-.features-grid{
-    max-width:1150px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
-}
-
-.feature{
-    background:white;
-    padding:28px 20px;
-    border-radius:20px;
-    text-align:center;
-    border:1px solid var(--border);
-}
-
-.feature-icon{
-    font-size:35px;
-    margin-bottom:12px;
-}
-
-.feature h3{
-    font-size:17px;
-    margin-bottom:7px;
-}
-
-.feature p{
-    font-size:13px;
-    color:var(--muted);
-    line-height:1.7;
-}
-
-
-/* =========================================================
-   ABOUT
-========================================================= */
-
-.about{
-    background:white;
-}
-
-.about-container{
-    max-width:1100px;
-    margin:auto;
-    background:var(--navy);
-    color:white;
-    border-radius:35px;
-    padding:60px;
-    display:grid;
-    grid-template-columns:180px 1fr;
-    gap:45px;
-    align-items:center;
-}
-
-.about-avatar{
-    width:160px;
-    height:160px;
-    border-radius:30px;
-    background:rgba(255,255,255,.09);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:75px;
-}
-
-.about-content span{
-    color:#ff9a76;
-    font-weight:800;
-}
-
-.about-content h2{
-    font-size:36px;
-    margin:8px 0 15px;
-}
-
-.about-content p{
-    color:#bfc7d6;
-    line-height:2;
-}
-
-
-/* =========================================================
-   CONTACT
-========================================================= */
-
-.contact{
-    background:#f7f9fc;
-}
-
-.contact-grid{
-    max-width:850px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-}
-
-.contact-card{
-    background:white;
-    padding:25px;
-    border-radius:18px;
-    text-align:center;
-    border:1px solid var(--border);
-    font-weight:800;
-    transition:.3s;
-}
-
-.contact-card:hover{
-    transform:translateY(-5px);
-    box-shadow:var(--shadow);
-}
-
-.contact-card div{
-    font-size:30px;
-    margin-bottom:8px;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-footer{
-    background:#0c1529;
-    color:white;
-    padding:40px 8%;
-    text-align:center;
-}
-
-footer p{
-    color:#8e99ad;
-    margin-top:10px;
-    font-size:13px;
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(5,10,20,.72);
-    backdrop-filter:blur(8px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-    z-index:9000;
-}
-
-.modal.active{
-    display:flex;
-}
-
-.modal-box{
-    width:440px;
-    max-width:100%;
-    background:white;
-    border-radius:28px;
-    padding:35px;
-    position:relative;
-    animation:popup .25s ease;
-    max-height:90vh;
-    overflow:auto;
-}
-
-@keyframes popup{
-    from{
-        transform:translateY(20px) scale(.96);
-        opacity:0;
-    }
-    to{
-        transform:none;
-        opacity:1;
-    }
-}
-
-.close-modal{
-    position:absolute;
-    top:12px;
-    left:15px;
-    width:38px;
-    height:38px;
-    border:0;
-    background:#f3f4f7;
-    border-radius:50%;
-    font-size:22px;
-}
-
-.modal-icon{
-    width:65px;
-    height:65px;
-    background:#fff0e9;
-    border-radius:18px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:32px;
-    margin-bottom:15px;
-}
-
-.modal-box h2{
-    font-size:25px;
-}
-
-.modal-box > p{
-    color:var(--muted);
-    font-size:13px;
-    margin:4px 0 22px;
-}
-
-.form-group{
-    margin-bottom:13px;
-}
-
-.form-group label{
-    display:block;
-    font-size:12px;
-    font-weight:800;
-    margin-bottom:6px;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select{
-    width:100%;
-    padding:13px;
-    border:1px solid #dfe3ea;
-    border-radius:12px;
-    outline:0;
-    background:#fafbfc;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus{
-    border-color:var(--primary);
-    background:white;
-}
-
-.form-group textarea{
-    min-height:100px;
-    resize:vertical;
-}
-
-.form-submit{
-    width:100%;
-    padding:13px;
-    border:0;
-    background:var(--primary);
-    color:white;
-    border-radius:12px;
-    font-weight:800;
-    margin-top:5px;
-}
-
-.switch-login{
-    text-align:center;
-    margin-top:18px;
-    color:var(--muted);
-    font-size:12px;
-}
-
-.switch-login button{
-    border:0;
-    background:none;
-    color:var(--primary);
-    font-weight:800;
-}
-
-
-/* =========================================================
-   DASHBOARD
-========================================================= */
-
-.dashboard{
-    display:none;
-    min-height:100vh;
-    background:#f4f6fa;
-}
-
-.dashboard.active{
-    display:block;
-}
-
-.dashboard-nav{
-    height:75px;
-    background:white;
-    border-bottom:1px solid var(--border);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 5%;
-    position:sticky;
-    top:0;
-    z-index:3000;
-}
-
-.dashboard-user{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.user-avatar{
-    width:42px;
-    height:42px;
-    border-radius:12px;
-    background:#fff0e9;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.dashboard-main{
-    padding:40px 6%;
-}
-
-.dashboard-title{
-    margin-bottom:30px;
-}
-
-.dashboard-title h1{
-    font-size:34px;
-}
-
-.dashboard-title p{
-    color:var(--muted);
-}
-
-.dashboard-stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-    margin-bottom:30px;
-}
-
-.dashboard-stat{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:18px;
-    padding:22px;
-}
-
-.dashboard-stat span{
-    color:var(--muted);
-    font-size:12px;
-}
-
-.dashboard-stat strong{
-    display:block;
-    font-size:28px;
-    margin-top:5px;
-}
-
-.admin-layout{
-    display:grid;
-    grid-template-columns:220px 1fr;
-    gap:25px;
-}
-
-.sidebar{
-    background:var(--navy);
-    border-radius:20px;
-    padding:20px;
-    height:max-content;
-}
-
-.sidebar button{
-    width:100%;
-    border:0;
-    background:transparent;
-    color:#bbc4d3;
-    padding:13px;
-    text-align:right;
-    border-radius:10px;
-    font-weight:700;
-    margin-bottom:5px;
-}
-
-.sidebar button.active,
-.sidebar button:hover{
-    background:rgba(255,255,255,.09);
-    color:white;
-}
-
-.dashboard-panel{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:25px;
-}
-
-.panel-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-}
-
-.panel-header h2{
-    font-size:22px;
-}
-
-.admin-courses{
-    display:grid;
-    gap:12px;
-}
-
-.admin-course{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-    padding:17px;
-    border:1px solid var(--border);
-    border-radius:14px;
-}
-
-.admin-course-info{
-    display:flex;
-    align-items:center;
-    gap:14px;
-}
-
-.admin-course-icon{
-    width:50px;
-    height:50px;
-    border-radius:12px;
-    background:#fff0e9;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-}
-
-.admin-actions{
-    display:flex;
-    gap:7px;
-}
-
-.small-btn{
-    border:0;
-    border-radius:9px;
-    padding:8px 12px;
-    font-size:12px;
-    font-weight:800;
-}
-
-.empty{
-    text-align:center;
-    padding:45px;
-    color:var(--muted);
-}
-
-
-/* =========================================================
-   STUDENT AREA
-========================================================= */
-
-.student-area{
-    display:none;
-    min-height:100vh;
-    background:#f5f7fb;
-}
-
-.student-area.active{
-    display:block;
-}
-
-.student-header{
-    background:var(--navy);
-    color:white;
-    padding:120px 7% 55px;
-}
-
-.student-header-content{
-    max-width:1200px;
-    margin:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
-}
-
-.student-header h1{
-    font-size:38px;
-}
-
-.student-header p{
-    color:#b9c2d2;
-}
-
-.student-courses{
-    padding:45px 7%;
-    max-width:1300px;
-    margin:auto;
-}
-
-.student-course-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:22px;
-}
-
-
-/* =========================================================
-   COURSE VIEW
-========================================================= */
-
-.course-view{
-    display:none;
-    min-height:100vh;
-    background:#f5f7fb;
-}
-
-.course-view.active{
-    display:block;
-}
-
-.course-view-header{
-    background:var(--navy);
-    color:white;
-    padding:110px 7% 45px;
-}
-
-.course-view-header-inner{
-    max-width:1100px;
-    margin:auto;
-}
-
-.course-view-header h1{
-    font-size:38px;
-    margin:10px 0;
-}
-
-.course-view-header p{
-    color:#bfc7d6;
-}
-
-.lessons{
-    max-width:1000px;
-    margin:40px auto;
-    padding:0 20px 70px;
-}
-
-.lesson{
-    background:white;
-    border:1px solid var(--border);
-    border-radius:17px;
-    padding:18px;
-    margin-bottom:12px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-}
-
-.lesson-number{
-    width:45px;
-    height:45px;
-    flex-shrink:0;
-    border-radius:12px;
-    background:#fff0e9;
-    color:var(--primary);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:900;
-}
-
-.lesson-info{
-    flex:1;
-}
-
-.lesson-info h3{
-    font-size:15px;
-}
-
-.lesson-info span{
-    color:var(--muted);
-    font-size:11px;
-}
-
-.lesson-btn{
-    border:0;
-    background:var(--navy);
-    color:white;
-    padding:9px 15px;
-    border-radius:9px;
-    font-weight:700;
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-.toast{
-    position:fixed;
-    bottom:25px;
-    left:25px;
-    background:var(--navy);
-    color:white;
-    padding:15px 20px;
-    border-radius:13px;
-    box-shadow:0 15px 40px rgba(0,0,0,.2);
-    transform:translateY(100px);
-    opacity:0;
-    transition:.3s;
-    z-index:99999;
-    font-size:13px;
-}
-
-.toast.show{
-    transform:none;
-    opacity:1;
-}
-
-
-/* =========================================================
-   RESPONSIVE — TABLET
-========================================================= */
-
-@media (max-width: 1100px){
-
-    .navbar{
-        padding:0 4%;
-    }
-
-    .nav-links{
-        gap:18px;
-    }
-
-    .nav-links a{
-        font-size:13px;
-    }
-
-    .hero{
-        grid-template-columns:1fr 1fr;
-        gap:35px;
-        padding-left:6%;
-        padding-right:6%;
-    }
-
-    .hero h1{
-        font-size:clamp(42px,6vw,65px);
-    }
-
-    .hero-description{
-        font-size:16px;
-    }
-
-    .course-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .features-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .student-course-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .dashboard-stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .admin-layout{
-        grid-template-columns:190px 1fr;
-    }
-
-}
-
-
-/* =========================================================
-   RESPONSIVE — MOBILE
-========================================================= */
-
-@media (max-width: 768px){
-
-    body{
-        overflow-x:hidden;
-    }
-
-    /* NAVBAR */
-
-    .navbar{
-        height:68px;
-        padding:0 4%;
-    }
-
-    .logo{
-        font-size:18px;
-    }
-
-    .nav-links{
-        display:none;
-    }
-
-    .nav-actions{
-        gap:7px;
-    }
-
-    .nav-actions .btn{
-        padding:9px 12px;
-        font-size:11px;
-        border-radius:10px;
-    }
-
-    .menu-btn{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        width:40px;
-        height:40px;
-    }
-
-
-    /* HERO */
-
-    .hero{
-        min-height:auto;
-        grid-template-columns:1fr;
-        gap:35px;
-        padding:115px 5% 60px;
-        text-align:center;
-    }
-
-    .hero-text{
-        width:100%;
-    }
-
-    .hero-badge{
-        font-size:11px;
-        padding:8px 13px;
-    }
-
-    .hero h1{
-        font-size:45px;
-        line-height:1.15;
-        letter-spacing:-1px;
-    }
-
-    .hero-description{
-        font-size:14px;
-        line-height:1.9;
-        margin-bottom:25px;
-    }
-
-    .hero-buttons{
-        justify-content:center;
-        width:100%;
-    }
-
-    .hero-btn{
-        width:100%;
-        max-width:300px;
-        padding:13px 20px;
-    }
-
-    .hero-stats{
-        justify-content:center;
-        gap:25px;
-        margin-top:32px;
-    }
-
-    .hero-stat strong{
-        font-size:21px;
-    }
-
-    .hero-stat span{
-        font-size:11px;
-    }
-
-
-    /* HERO VISUAL */
-
-    .hero-visual{
-        min-height:390px;
-        width:100%;
-    }
-
-    .glow{
-        width:270px;
-        height:270px;
-    }
-
-    .teacher-profile{
-        width:270px;
-        min-height:350px;
-        padding:30px 20px;
-        border-radius:28px;
-    }
-
-    .teacher-photo{
-        width:105px;
-        height:105px;
-        font-size:55px;
-    }
-
-    .teacher-profile h2{
-        font-size:23px;
-    }
-
-    .float-box{
-        padding:11px 13px;
-        font-size:11px;
-        border-radius:12px;
-    }
-
-    .float-1{
-        top:35px;
-        right:0;
-    }
-
-    .float-2{
-        bottom:35px;
-        left:0;
-    }
-
-
-    /* SECTIONS */
-
-    .section{
-        padding:65px 5%;
-    }
-
-    .section-header{
-        margin-bottom:35px;
-    }
-
-    .section-header h2{
-        font-size:29px;
-        line-height:1.4;
-    }
-
-    .section-header p{
-        font-size:13px;
-    }
-
-
-    /* COURSES */
-
-    .course-grid,
-    .student-course-grid{
-        grid-template-columns:1fr;
-        gap:17px;
-    }
-
-    .course-card{
-        padding:21px;
-        border-radius:20px;
-    }
-
-    .course-card h3{
-        font-size:19px;
-    }
-
-    .course-card p{
-        font-size:13px;
-        min-height:auto;
-    }
-
-    .course-info{
-        margin:15px 0;
-        gap:12px;
-    }
-
-
-    /* FEATURES */
-
-    .features-grid{
-        grid-template-columns:1fr 1fr;
-        gap:12px;
-    }
-
-    .feature{
-        padding:20px 12px;
-        border-radius:16px;
-    }
-
-    .feature-icon{
-        font-size:28px;
-    }
-
-    .feature h3{
-        font-size:14px;
-    }
-
-    .feature p{
-        font-size:11px;
-    }
-
-
-    /* ABOUT */
-
-    .about-container{
-        grid-template-columns:1fr;
-        padding:32px 22px;
-        border-radius:25px;
-        text-align:center;
-        gap:25px;
-    }
-
-    .about-avatar{
-        width:110px;
-        height:110px;
-        font-size:55px;
-        border-radius:22px;
-    }
-
-    .about-content h2{
-        font-size:25px;
-        line-height:1.5;
-    }
-
-    .about-content p{
-        font-size:13px;
-        line-height:1.9;
-    }
-
-
-    /* CONTACT */
-
-    .contact-grid{
-        grid-template-columns:1fr;
-        gap:12px;
-    }
-
-    .contact-card{
-        padding:20px;
-    }
-
-
-    /* MODALS */
-
-    .modal{
-        padding:12px;
-        align-items:center;
-    }
-
-    .modal-box{
-        width:100%;
-        max-width:420px;
-        padding:28px 20px;
-        border-radius:22px;
-        max-height:92vh;
-    }
-
-    .modal-box h2{
-        font-size:22px;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select{
-        padding:12px;
-        font-size:13px;
-    }
-
-
-    /* DASHBOARD */
-
-    .dashboard-nav{
-        height:auto;
-        min-height:68px;
-        padding:10px 4%;
-        gap:8px;
-    }
-
-    .dashboard-user{
-        gap:7px;
-    }
-
-    .dashboard-user strong{
-        display:none;
-    }
-
-    .dashboard-user .btn{
-        padding:8px 11px;
-        font-size:11px;
-    }
-
-    .dashboard-main{
-        padding:22px 4%;
-    }
-
-    .dashboard-title h1{
-        font-size:27px;
-    }
-
-    .dashboard-title p{
-        font-size:12px;
-    }
-
-    .dashboard-stats{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-    }
-
-    .dashboard-stat{
-        padding:17px 13px;
-        border-radius:15px;
-    }
-
-    .dashboard-stat span{
-        font-size:10px;
-    }
-
-    .dashboard-stat strong{
-        font-size:23px;
-    }
-
-
-    /* ADMIN */
-
-    .admin-layout{
-        grid-template-columns:1fr;
-        gap:15px;
-    }
-
-    .sidebar{
-        display:flex;
-        gap:6px;
-        padding:8px;
-        overflow-x:auto;
-        border-radius:14px;
-    }
-
-    .sidebar button{
-        min-width:120px;
-        margin:0;
-        padding:10px;
-        text-align:center;
-        white-space:nowrap;
-        font-size:11px;
-    }
-
-    .dashboard-panel{
-        padding:17px;
-        border-radius:16px;
-    }
-
-    .panel-header{
-        gap:10px;
-    }
-
-    .panel-header h2{
-        font-size:18px;
-    }
-
-    .panel-header .btn{
-        padding:9px 11px;
-        font-size:10px;
-    }
-
-    .admin-course{
-        padding:13px;
-        flex-direction:column;
-        align-items:stretch;
-        gap:12px;
-    }
-
-    .admin-course-info{
-        width:100%;
-    }
-
-    .admin-actions{
-        width:100%;
-    }
-
-    .admin-actions button{
-        flex:1;
-    }
-
-
-    /* STUDENT HEADER */
-
-    .student-header{
-        padding:100px 5% 40px;
-    }
-
-    .student-header-content{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:20px;
-    }
-
-    .student-header h1{
-        font-size:28px;
-    }
-
-    .student-header p{
-        font-size:12px;
-    }
-
-    .student-header .btn{
-        width:100%;
-    }
-
-    .student-courses{
-        padding:30px 5%;
-    }
-
-
-    /* COURSE VIEW */
-
-    .course-view-header{
-        padding:95px 5% 35px;
-    }
-
-    .course-view-header-inner{
-        width:100%;
-    }
-
-    .course-view-header h1{
-        font-size:27px;
-        line-height:1.4;
-    }
-
-    .course-view-header p{
-        font-size:12px;
-        line-height:1.8;
-    }
-
-    .course-view-header .btn{
-        padding:9px 13px;
-        font-size:11px;
-    }
-
-    .lessons{
-        margin:25px auto;
-        padding:0 12px 50px;
-    }
-
-    .lesson{
-        padding:13px;
-        border-radius:14px;
-        gap:10px;
-    }
-
-    .lesson-number{
-        width:38px;
-        height:38px;
-        font-size:12px;
-    }
-
-    .lesson-info h3{
-        font-size:13px;
-    }
-
-    .lesson-info span{
-        font-size:10px;
-    }
-
-    .lesson-btn{
-        padding:8px 11px;
-        font-size:10px;
-        white-space:nowrap;
-    }
-
-
-    /* FOOTER */
-
-    footer{
-        padding:30px 5%;
-    }
-
-}
-
-
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
-
-@media (max-width: 400px){
-
-    .logo{
-        font-size:16px;
-    }
-
-    .nav-actions .btn{
-        font-size:10px;
-        padding:8px 9px;
-    }
-
-    .menu-btn{
-        width:37px;
-        height:37px;
-        font-size:17px;
-    }
-
-    .hero{
-        padding-top:105px;
-    }
-
-    .hero h1{
-        font-size:39px;
-    }
-
-    .hero-description{
-        font-size:13px;
-    }
-
-    .hero-stats{
-        gap:15px;
-    }
-
-    .hero-stat strong{
-        font-size:19px;
-    }
-
-    .teacher-profile{
-        width:245px;
-    }
-
-    .float-box{
-        font-size:10px;
-        padding:9px 11px;
-    }
-
-    .features-grid{
-        grid-template-columns:1fr;
-    }
-
-    .dashboard-stats{
-        grid-template-columns:1fr;
-    }
-
-    .dashboard-stat{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-    }
-
-    .dashboard-stat strong{
-        margin:0;
-    }
-
-    .modal-box{
-        padding:25px 16px;
-    }
-
-}
+  /* ============ DESIGN TOKENS ============ */
+  :root{
+    --radius-sm: 3px;
+    --radius-lg: 8px;
+    --space-xs: clamp(8px, 1.4vw, 12px);
+    --space-sm: clamp(14px, 2.2vw, 20px);
+    --space-md: clamp(24px, 4vw, 40px);
+    --space-lg: clamp(48px, 7vw, 90px);
+    --space-xl: clamp(72px, 11vw, 140px);
+    --maxw: 1240px;
+    --ease: cubic-bezier(.16,1,.3,1);
+  }
+
+  html, html[data-theme="dark"]{
+    --bg: #14120f; --bg-soft: #191712; --panel: #1c1a15; --panel-raised: #242019;
+    --line: #343026; --ink: #ece7db; --ink-dim: #a49c8a;
+    --copper: #d98a4b; --copper-bright: #f0a868; --copper-deep: #b5652f;
+    --mist: #7fa8a4; --glow: rgba(240, 168, 104, 0.28); --shadow: rgba(0,0,0,0.45);
+    color-scheme: dark;
+  }
+  html[data-theme="light"]{
+    --bg: #f4f2ec; --bg-soft: #eeece3; --panel: #ffffff; --panel-raised: #ece8dc;
+    --line: #ddd7c8; --ink: #262319; --ink-dim: #6d6656;
+    --copper: #b5652f; --copper-bright: #d98a4b; --copper-deep: #8f4e22;
+    --mist: #4f7975; --glow: rgba(181, 101, 47, 0.16); --shadow: rgba(80, 65, 40, 0.14);
+    color-scheme: light;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'IBM Plex Sans Arabic', sans-serif; font-weight:400; line-height:1.7;
+    overflow-x:hidden; transition:background 0.35s ease, color 0.35s ease;
+    cursor:default;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+    .reveal{opacity:1 !important; transform:none !important;}
+    .cursor-glow{display:none !important;}
+  }
+
+  h1,h2,h3,.display{ font-family:'Tajawal', sans-serif; font-weight:900; color:var(--ink); }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  :focus-visible{outline:2px solid var(--copper-bright); outline-offset:3px;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 clamp(20px, 5vw, 48px);}
+
+  /* ============ CURSOR GLOW (desktop, decorative, user-driven) ============ */
+  .cursor-glow{
+    position:fixed; top:0; left:0; width:420px; height:420px; z-index:1;
+    pointer-events:none; border-radius:50%;
+    background:radial-gradient(circle, var(--glow), transparent 68%);
+    transform:translate(-50%,-50%); opacity:0;
+    transition:opacity 0.4s ease;
+    will-change:transform;
+  }
+  @media(hover:none){ .cursor-glow{display:none;} }
+
+  /* ============ SCROLL REVEAL SYSTEM ============ */
+  .reveal{
+    opacity:0; transform:translateY(28px);
+    transition:opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    transition-delay:calc(var(--i, 0) * 70ms);
+  }
+  .reveal.in-view{ opacity:1; transform:none; }
+  .reveal-scale{ transform:translateY(14px) scale(0.94); }
+  .reveal-scale.in-view{ transform:none; }
+  .reveal-right{ transform:translateX(36px); }
+  .reveal-right.in-view{ transform:none; }
+
+  /* ============ NAV ============ */
+  header{
+    position:fixed; inset:0 0 auto 0; z-index:200;
+    background:color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter:blur(12px); border-bottom:1px solid var(--line);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px clamp(20px, 5vw, 48px); max-width:var(--maxw); margin:0 auto; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:'Tajawal'; font-weight:900; font-size:1.2rem; }
+  .logo .mark{
+    width:22px; height:22px; flex-shrink:0;
+    background:linear-gradient(135deg, var(--copper), var(--copper-bright));
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    box-shadow:0 0 14px var(--glow);
+    animation:mark-spin 9s linear infinite;
+  }
+  @keyframes mark-spin{ from{filter:hue-rotate(0deg);} to{filter:hue-rotate(0deg);} }
+
+  .navlinks{display:none; gap:30px; font-size:0.94rem; color:var(--ink-dim);}
+  .navlinks a{position:relative; padding:4px 0; transition:color 0.2s;}
+  .navlinks a::after{ content:''; position:absolute; right:0; bottom:-2px; height:1px; width:0; background:var(--copper-bright); transition:width 0.3s var(--ease); }
+  .navlinks a:hover{color:var(--ink);}
+  .navlinks a:hover::after, .navlinks a.active::after{width:100%;}
+  .navlinks a.active{color:var(--ink);}
+  .nav-right{display:flex; align-items:center; gap:14px;}
+
+  .theme-toggle{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:var(--panel);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; position:relative; flex-shrink:0;
+    transition:border-color 0.2s, transform 0.35s var(--ease);
+  }
+  .theme-toggle:hover{border-color:var(--copper-bright); transform:translateY(-1px) rotate(-14deg);}
+  .theme-toggle svg{width:18px; height:18px; stroke:var(--ink); fill:none; transition:transform 0.4s var(--ease);}
+  .theme-toggle .icon-moon{display:none;}
+  html[data-theme="light"] .theme-toggle .icon-sun{display:none;}
+  html[data-theme="light"] .theme-toggle .icon-moon{display:block;}
+
+  .nav-cta{
+    display:none; background:var(--ink); color:var(--bg); padding:10px 22px; border-radius:var(--radius-sm);
+    font-size:0.88rem; font-weight:600; transition:background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover{background:var(--copper-bright); color:#181410; transform:translateY(-1px);}
+
+  .burger{ width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:var(--panel);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; flex-direction:column; gap:4px; }
+  .burger span{width:15px; height:1.5px; background:var(--ink); transition:transform 0.25s, opacity 0.25s;}
+  .burger.open span:nth-child(1){transform:translateY(5.5px) rotate(45deg);}
+  .burger.open span:nth-child(2){opacity:0;}
+  .burger.open span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg);}
+
+  @media(min-width:900px){ .navlinks{display:flex;} .nav-cta{display:inline-block;} .burger{display:none;} }
+
+  .mobile-menu{
+    position:fixed; inset:0; z-index:150; background:var(--bg); display:flex; flex-direction:column;
+    padding:110px clamp(24px,8vw,60px) 40px; gap:6px; transform:translateY(-100%); transition:transform 0.4s var(--ease);
+  }
+  .mobile-menu.open{transform:translateY(0);}
+  .mobile-menu a{ font-family:'Tajawal'; font-weight:700; font-size:1.6rem; padding:16px 0; border-bottom:1px solid var(--line);
+    opacity:0; transform:translateY(14px); transition:opacity 0.4s var(--ease), transform 0.4s var(--ease); transition-delay:calc(var(--i,0)*60ms); }
+  .mobile-menu.open a{opacity:1; transform:none;}
+  .mobile-menu .nav-cta{display:inline-block; margin-top:26px; text-align:center;}
+  @media(min-width:900px){ .mobile-menu{display:none;} }
+
+  /* ============ HERO — one orchestrated load-in sequence ============ */
+  .hero{ padding:clamp(140px,20vw,190px) 0 var(--space-xl); display:grid; grid-template-columns:1fr; gap:var(--space-lg); }
+  @media(min-width:920px){ .hero{grid-template-columns:1fr 460px; align-items:center;} }
+
+  .hero-copy .eyebrow, .hero-copy h1, .hero-copy p, .hero-actions, .stage{
+    opacity:0; transform:translateY(22px);
+    animation:hero-in 0.9s var(--ease) forwards;
+  }
+  .hero-copy .eyebrow{animation-delay:0.05s;}
+  .hero-copy h1{animation-delay:0.16s;}
+  .hero-copy p{animation-delay:0.32s;}
+  .hero-actions{animation-delay:0.46s;}
+  .stage{animation-delay:0.3s; transform:translateY(22px) scale(0.96);}
+  @keyframes hero-in{ to{ opacity:1; transform:none; } }
+
+  .hero-copy .eyebrow{ color:var(--copper-bright); font-size:0.95rem; margin-bottom:18px; display:block; }
+  .hero-copy h1{ font-size:clamp(2.2rem, 6vw, 4.2rem); line-height:1.08; margin-bottom:26px; }
+  .hero-copy p{ color:var(--ink-dim); font-size:clamp(1rem,2vw,1.15rem); max-width:480px; margin-bottom:34px; }
+  .hero-actions{display:flex; gap:16px; flex-wrap:wrap;}
+
+  .btn-primary{
+    background:var(--copper); color:#181109; padding:15px 30px; border-radius:var(--radius-sm);
+    font-weight:600; font-size:1rem; border:none; cursor:pointer; display:inline-block;
+    box-shadow:0 8px 24px -8px var(--glow); transition:transform 0.2s var(--ease), background 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover{background:var(--copper-bright); box-shadow:0 12px 30px -8px var(--glow);}
+  .btn-secondary{
+    padding:15px 30px; border-radius:var(--radius-sm); border:1px solid var(--line); font-weight:500; font-size:1rem;
+    transition:border-color 0.2s, background 0.2s, transform 0.2s var(--ease);
+  }
+  .btn-secondary:hover{border-color:var(--copper-bright); background:var(--panel); transform:translateY(-2px);}
+
+  /* ============ 3D HERO OBJECT ============ */
+  .stage{ height:clamp(280px,40vw,420px); perspective:1000px; display:flex; align-items:center; justify-content:center; position:relative; }
+  .stage::before{ content:''; position:absolute; inset:0; background:radial-gradient(circle at center, var(--glow), transparent 65%); filter:blur(20px); }
+  .solid{
+    width:clamp(140px,22vw,200px); height:clamp(140px,22vw,200px); position:relative; transform-style:preserve-3d;
+    transform:rotateX(-18deg) rotateY(35deg); transition:transform 0.15s ease-out;
+    animation:idle-spin 16s linear infinite;
+  }
+  .stage:hover .solid, .stage:focus-within .solid{ animation-play-state:paused; }
+  @keyframes idle-spin{ from{ transform:rotateX(-18deg) rotateY(35deg); } to{ transform:rotateX(-18deg) rotateY(395deg); } }
+  .face{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(155deg, var(--panel-raised), var(--panel)); border:1px solid var(--line); }
+  .face span{ font-family:'Tajawal'; font-weight:900; color:var(--copper-bright); font-size:2.2rem; opacity:0.35; }
+  .face.front { transform:translateZ(clamp(70px,11vw,100px)); }
+  .face.back  { transform:rotateY(180deg) translateZ(clamp(70px,11vw,100px)); }
+  .face.right { transform:rotateY(90deg) translateZ(clamp(70px,11vw,100px)); background:linear-gradient(155deg, var(--copper-deep), var(--panel)); box-shadow:inset 0 0 30px var(--glow); }
+  .face.left  { transform:rotateY(-90deg) translateZ(clamp(70px,11vw,100px)); background:linear-gradient(155deg, var(--copper-deep), var(--panel)); box-shadow:inset 0 0 30px var(--glow); }
+  .face.top   { transform:rotateX(90deg) translateZ(clamp(70px,11vw,100px)); }
+  .face.bottom{ transform:rotateX(-90deg) translateZ(clamp(70px,11vw,100px)); }
+  .stage-caption{ position:absolute; bottom:-4px; right:50%; transform:translateX(50%); font-size:0.78rem; color:var(--ink-dim); white-space:nowrap; }
+
+  /* ============ STRIP (counted numbers) ============ */
+  .strip{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:26px 0; }
+  .strip .wrap{ display:grid; grid-template-columns:repeat(auto-fit, minmax(130px,1fr)); gap:var(--space-sm); text-align:center; }
+  .strip .num{ font-family:'Tajawal'; font-weight:900; font-size:clamp(1.5rem,3vw,1.9rem); color:var(--copper-bright); font-variant-numeric:tabular-nums; }
+  .strip .lbl{ font-size:0.85rem; color:var(--ink-dim); margin-top:4px; }
+
+  /* ============ SECTIONS ============ */
+  section{ padding:var(--space-xl) 0; }
+  .sec-head{ max-width:560px; margin-bottom:var(--space-md); }
+  .sec-head .kicker{ color:var(--mist); font-size:0.85rem; display:block; margin-bottom:10px; }
+  .sec-head h2{ font-size:clamp(1.7rem,4vw,2.6rem); margin-bottom:16px; }
+  .sec-head p{ color:var(--ink-dim); font-size:clamp(0.95rem,1.6vw,1.05rem); }
+
+  /* ============ PRODUCT GRID ============ */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:var(--space-sm); }
+  .card{ perspective:800px; }
+  .card-inner{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius-lg);
+    overflow:hidden; height:100%; display:flex; flex-direction:column;
+    transform-style:preserve-3d; will-change:transform;
+    transition:transform 0.15s ease-out, border-color 0.2s, box-shadow 0.2s;
+  }
+  .card-inner:hover{ border-color:color-mix(in srgb, var(--copper-bright) 45%, var(--line)); box-shadow:0 18px 40px -20px var(--shadow); }
+  .card-visual{
+    height:200px; display:flex; align-items:center; justify-content:center;
+    background: radial-gradient(circle at 30% 20%, var(--glow), transparent 55%), repeating-linear-gradient(135deg, var(--bg-soft) 0 2px, var(--panel) 2px 26px);
+    position:relative; overflow:hidden;
+  }
+  .glyph{ width:74px; height:74px; transform-style:preserve-3d; transform:rotateX(-20deg) rotateY(28deg); position:relative; transition:transform 0.6s var(--ease); }
+  .card:hover .glyph{ transform:rotateX(-20deg) rotateY(200deg); }
+  .glyph .f{ position:absolute; inset:0; background:linear-gradient(150deg, var(--copper-bright), var(--copper)); opacity:0.92; }
+  .glyph .f1{ transform:translateZ(36px); clip-path:polygon(50% 0,100% 100%,0 100%); }
+  .glyph .f2{ transform:rotateY(120deg) translateZ(36px); clip-path:polygon(50% 0,100% 100%,0 100%); opacity:0.72;}
+  .glyph .f3{ transform:rotateY(240deg) translateZ(36px); clip-path:polygon(50% 0,100% 100%,0 100%); opacity:0.55;}
+  .card-body{ padding:20px 22px 24px; display:flex; flex-direction:column; flex:1; }
+  .card-body .tag{ font-size:0.76rem; color:var(--mist); margin-bottom:8px; display:block; }
+  .card-body h3{ font-size:1.1rem; margin-bottom:8px; font-weight:700; }
+  .card-body p{ color:var(--ink-dim); font-size:0.9rem; margin-bottom:16px; flex:1; }
+  .card-foot{ display:flex; justify-content:space-between; align-items:center; padding-top:14px; border-top:1px solid var(--line); }
+  .price{ font-family:'Tajawal'; font-weight:700; font-size:1.02rem; }
+  .add{ font-size:0.83rem; color:var(--ink-dim); border:1px solid var(--line); padding:7px 14px; border-radius:var(--radius-sm); transition:all 0.2s; }
+  .add:hover{ color:#181109; background:var(--copper-bright); border-color:var(--copper-bright); }
+
+  /* ============ PROCESS with drawing connector line ============ */
+  .process{ background:var(--bg-soft); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .steps{ position:relative; display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); border-top:1px solid var(--line); }
+  .steps::before{
+    content:''; position:absolute; top:0; right:0; height:2px; width:100%;
+    background:var(--copper-bright); transform-origin:right; transform:scaleX(0);
+    transition:transform 1.1s var(--ease); box-shadow:0 0 10px var(--glow);
+  }
+  .steps.in-view::before{ transform:scaleX(1); }
+  .step{ padding:32px 26px; border-bottom:1px solid var(--line); border-left:1px solid var(--line); }
+  .step .n{ font-family:'Tajawal'; font-weight:900; font-size:2.3rem; color:transparent; -webkit-text-stroke:1.3px color-mix(in srgb, var(--ink) 35%, transparent); margin-bottom:16px; transition:color 0.4s var(--ease), -webkit-text-stroke 0.4s var(--ease); }
+  .step.in-view .n{ color:var(--copper-bright); -webkit-text-stroke:1.3px transparent; }
+  .step h3{ font-size:1.02rem; margin-bottom:10px; }
+  .step p{ color:var(--ink-dim); font-size:0.88rem; }
+
+  /* ============ MATERIALS ============ */
+  .materials .wrap{ display:grid; grid-template-columns:1fr; gap:var(--space-md); }
+  @media(min-width:900px){ .materials .wrap{grid-template-columns:1fr 1fr; align-items:start;} }
+  .mat-row{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:18px 0; border-bottom:1px solid var(--line); flex-wrap:wrap; transition:padding-right 0.3s var(--ease); }
+  .mat-row:hover{ padding-right:10px; }
+  .mat-row .name{ font-family:'Tajawal'; font-weight:700; font-size:1.05rem; }
+  .mat-row .desc{ color:var(--ink-dim); font-size:0.86rem; max-width:280px; text-align:left; }
+  .swatches{ display:grid; grid-template-columns:repeat(auto-fit, minmax(100px,1fr)); gap:12px; }
+  .swatch{ aspect-ratio:1; border-radius:var(--radius-lg); border:1px solid var(--line); display:flex; align-items:flex-end; padding:12px; font-size:0.78rem; color:#fff; position:relative; overflow:hidden; transition:transform 0.3s var(--ease); }
+  .swatch:hover{ transform:translateY(-5px); }
+  .swatch::before{content:''; position:absolute; inset:0; opacity:0.92;}
+  .sw1::before{ background:linear-gradient(160deg,#8c8577,#4a453b); }
+  .sw2::before{ background:linear-gradient(160deg,var(--copper-bright),var(--copper-deep)); }
+  .sw3::before{ background:linear-gradient(160deg,#d8d3c6,#9a9686); }
+  .sw4::before{ background:linear-gradient(160deg,#413a2f,#221e17); }
+  .sw5::before{ background:linear-gradient(160deg,var(--mist),#2f4b48); }
+  .sw6::before{ background:linear-gradient(160deg,#7a5537,#3b2919); }
+  .swatch span{position:relative; z-index:1; text-shadow:0 1px 3px rgba(0,0,0,0.5);}
+
+  /* ============ CTA BAND ============ */
+  .cta-band{ background:linear-gradient(120deg, var(--panel-raised), var(--bg-soft)); border-top:1px solid var(--line); text-align:center; padding:var(--space-xl) 0; }
+  .cta-band h2{ font-size:clamp(1.8rem,4.5vw,2.8rem); max-width:600px; margin:0 auto 18px; }
+  .cta-band p{ color:var(--ink-dim); max-width:460px; margin:0 auto 30px; }
+
+  /* ============ FOOTER ============ */
+  footer{ padding:60px 0 40px; border-top:1px solid var(--line); }
+  .foot-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr)); gap:var(--space-md); padding-bottom:44px; }
+  .foot-grid h4{ font-size:0.92rem; margin-bottom:14px; font-family:'Tajawal'; font-weight:700; }
+  .foot-grid ul{ list-style:none; }
+  .foot-grid li{ margin-bottom:9px; }
+  .foot-grid a{ color:var(--ink-dim); font-size:0.88rem; transition:color 0.2s; }
+  .foot-grid a:hover{ color:var(--ink); }
+  .foot-brand p{ color:var(--ink-dim); font-size:0.88rem; max-width:280px; margin-top:14px; }
+  .foot-bottom{ display:flex; flex-direction:column; gap:10px; padding-top:24px; border-top:1px solid var(--line); font-size:0.8rem; color:var(--ink-dim); }
+  @media(min-width:600px){ .foot-bottom{flex-direction:row; justify-content:space-between;} }
+
+  /* ============ SCROLL PROGRESS + BACK TO TOP ============ */
+  .progress{ position:fixed; top:0; right:0; left:0; height:2px; background:var(--copper-bright); transform-origin:right; transform:scaleX(0); z-index:300; box-shadow:0 0 10px var(--glow); }
+
+  .to-top{
+    position:fixed; left:22px; bottom:22px; z-index:180;
+    width:46px; height:46px; border-radius:50%;
+    background:var(--panel); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    opacity:0; pointer-events:none; transform:translateY(14px) scale(0.85);
+    transition:opacity 0.35s var(--ease), transform 0.35s var(--ease), border-color 0.2s;
+  }
+  .to-top.show{ opacity:1; pointer-events:auto; transform:none; }
+  .to-top:hover{ border-color:var(--copper-bright); }
+  .to-top svg{ width:18px; height:18px; stroke:var(--ink); fill:none; }
 </style>
 </head>
-
 <body>
 
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="progress" id="progress"></div>
 
-<!-- ======================================================
-     LOADER
-======================================================= -->
-
-<div class="loader" id="loader">
-    <div class="loader-content">
-        <div class="loader-logo">
-            <span>MR.</span> ENGLISH
-        </div>
-        <div class="loader-circle"></div>
+<header>
+  <nav>
+    <div class="logo"><span class="mark"></span>مسبوكة</div>
+    <div class="navlinks" id="navlinks">
+      <a href="#work">القطع</a>
+      <a href="#process">آلية الطباعة</a>
+      <a href="#materials">الخامات</a>
+      <a href="#contact">تواصل</a>
     </div>
-</div>
-
-
-<!-- ======================================================
-     MAIN WEBSITE
-======================================================= -->
-
-<div id="mainWebsite">
-
-<header class="navbar">
-
-    <a href="#" class="logo">
-        <span>MR.</span> ENGLISH
-    </a>
-
-    <nav class="nav-links">
-        <a href="#home">الرئيسية</a>
-        <a href="#courses">الكورسات</a>
-        <a href="#features">المميزات</a>
-        <a href="#about">عن المستر</a>
-        <a href="#contact">تواصل معنا</a>
-    </nav>
-
-    <div class="nav-actions">
-
-        <button class="btn btn-light" id="accountButton" onclick="openLogin()">
-            تسجيل الدخول
-        </button>
-
-        <button class="menu-btn">
-            ☰
-        </button>
-
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع الفاتح والداكن">
+        <svg class="icon-sun" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.6 4.6l1.7 1.7M17.7 17.7l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.6 19.4l1.7-1.7M17.7 6.3l1.7-1.7"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/></svg>
+      </button>
+      <a href="#contact" class="nav-cta">اطلب تصميمك</a>
+      <button class="burger" id="burger" aria-label="فتح القائمة" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
-
+  </nav>
 </header>
 
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#work" style="--i:0">القطع</a>
+  <a href="#process" style="--i:1">آلية الطباعة</a>
+  <a href="#materials" style="--i:2">الخامات</a>
+  <a href="#contact" style="--i:3">تواصل</a>
+  <a href="#contact" class="nav-cta" style="--i:4">اطلب تصميمك</a>
+</div>
 
-<!-- HERO -->
+<main>
 
-<section class="hero" id="home">
-
-    <div class="hero-text">
-
-        <div class="hero-badge">
-            🚀 منصة تعليمية مختلفة
+  <section class="hero">
+    <div class="wrap" style="display:contents;">
+      <div class="hero-copy">
+        <span class="eyebrow">استوديو طباعة ثلاثية الأبعاد</span>
+        <h1>من ملف رقمي<br>إلى قطعة تُمسك بيدك</h1>
+        <p>نطبع مجسمات ومنحوتات دقيقة بدقة تصل إلى 0.05 مم، من فكرتك أو من تصميم جاهز، بخامات راتنج ومعادن مركّبة تليق بالعرض لا التخزين.</p>
+        <div class="hero-actions">
+          <a href="#work" class="btn-primary" data-magnetic>تصفّح القطع</a>
+          <a href="#process" class="btn-secondary">شاهد آلية العمل</a>
         </div>
-
-        <h1>
-            الإنجليزي
-            <span>بقى أسهل!</span>
-        </h1>
-
-        <p class="hero-description">
-            منصة Mr. English التعليمية تساعدك تتعلم الإنجليزية
-            بطريقة بسيطة ومنظمة، مع كورسات وفيديوهات واختبارات
-            ومتابعة مستمرة.
-        </p>
-
-        <div class="hero-buttons">
-
-            <a href="#courses" class="btn btn-primary hero-btn">
-                ابدأ التعلم الآن 🚀
-            </a>
-
-            <a href="#about" class="btn btn-light hero-btn">
-                تعرف على المستر
-            </a>
-
+      </div>
+      <div class="stage" id="stage" tabindex="0" aria-label="مجسم ثلاثي الأبعاد تفاعلي">
+        <div class="solid" id="solid">
+          <div class="face front"><span>M</span></div>
+          <div class="face back"><span>M</span></div>
+          <div class="face right"></div>
+          <div class="face left"></div>
+          <div class="face top"></div>
+          <div class="face bottom"></div>
         </div>
+        <span class="stage-caption">حرّك المؤشر لتدوير المجسم</span>
+      </div>
+    </div>
+  </section>
 
-        <div class="hero-stats">
+  <div class="strip">
+    <div class="wrap">
+      <div><div class="num" data-target="0.05" data-suffix="مم" data-decimals="2">٠</div><div class="lbl">دقة الطبقة الواحدة</div></div>
+      <div><div class="num" data-target="48">٠</div><div class="lbl">ساعة أقصى مدة طباعة</div></div>
+      <div><div class="num" data-target="12">٠</div><div class="lbl">خامة متاحة</div></div>
+      <div><div class="num" data-target="300" data-suffix="+">٠</div><div class="lbl">قطعة تم تسليمها</div></div>
+    </div>
+  </div>
 
-            <div class="hero-stat">
-                <strong id="heroStudents">+1000</strong>
-                <span>طالب</span>
-            </div>
+  <section id="work" class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">المتجر</span>
+      <h2>قطع من المرسم</h2>
+      <p>مختارات من تصاميمنا الجاهزة للطلب، وكل قطعة قابلة لتغيير المقاس والخامة قبل الطباعة.</p>
+    </div>
+    <div class="grid">
 
-            <div class="hero-stat">
-                <strong id="heroCourses">+50</strong>
-                <span>كورس</span>
-            </div>
-
-            <div class="hero-stat">
-                <strong>+5</strong>
-                <span>سنوات خبرة</span>
-            </div>
-
+      <div class="card reveal reveal-scale" style="--i:0"><div class="card-inner">
+        <div class="card-visual"><div class="glyph"><div class="f f1"></div><div class="f f2"></div><div class="f f3"></div></div></div>
+        <div class="card-body">
+          <span class="tag">منحوتات</span>
+          <h3>رأس معماري — سلسلة الأعمدة</h3>
+          <p>تجريد هندسي لتاج عمود كلاسيكي، مطبوع بطبقات دقيقة تُبرز الظل الطبيعي للحجر.</p>
+          <div class="card-foot"><span class="price">٣٨٥ ر.س</span><a href="#contact" class="add">أضف للطلب</a></div>
         </div>
+      </div></div>
+
+      <div class="card reveal reveal-scale" style="--i:1"><div class="card-inner">
+        <div class="card-visual"><div class="glyph"><div class="f f1"></div><div class="f f2"></div><div class="f f3"></div></div></div>
+        <div class="card-body">
+          <span class="tag">مجسمات معمارية</span>
+          <h3>نموذج مبنى مصغّر</h3>
+          <p>نحوّل مخططك المعماري إلى مجسم طاولة بمقياس رسم دقيق، مثالي لعروض التقديم.</p>
+          <div class="card-foot"><span class="price">يبدأ من ٩٢٠ ر.س</span><a href="#contact" class="add">أضف للطلب</a></div>
+        </div>
+      </div></div>
+
+      <div class="card reveal reveal-scale" style="--i:2"><div class="card-inner">
+        <div class="card-visual"><div class="glyph"><div class="f f1"></div><div class="f f2"></div><div class="f f3"></div></div></div>
+        <div class="card-body">
+          <span class="tag">تمائم مكتبية</span>
+          <h3>مجسم الشكل السداسي</h3>
+          <p>قطعة زخرفية بأوجه هندسية متعددة، تُصنع بلمسة نهائية معدنية أو مطفية حسب الطلب.</p>
+          <div class="card-foot"><span class="price">١٦٥ ر.س</span><a href="#contact" class="add">أضف للطلب</a></div>
+        </div>
+      </div></div>
+
+      <div class="card reveal reveal-scale" style="--i:3"><div class="card-inner">
+        <div class="card-visual"><div class="glyph"><div class="f f1"></div><div class="f f2"></div><div class="f f3"></div></div></div>
+        <div class="card-body">
+          <span class="tag">بورتريه</span>
+          <h3>تمثال نصفي مخصص</h3>
+          <p>نبني نموذجًا رقميًا من صورك ثم نطبعه كتمثال نصفي بتفاصيل الملامح كاملة.</p>
+          <div class="card-foot"><span class="price">يبدأ من ١٢٠٠ ر.س</span><a href="#contact" class="add">أضف للطلب</a></div>
+        </div>
+      </div></div>
+
+      <div class="card reveal reveal-scale" style="--i:4"><div class="card-inner">
+        <div class="card-visual"><div class="glyph"><div class="f f1"></div><div class="f f2"></div><div class="f f3"></div></div></div>
+        <div class="card-body">
+          <span class="tag">إضاءة</span>
+          <h3>قاعدة إضاءة شبكية</h3>
+          <p>بنية شبكية مفرّغة تُطبع بخامة شبه شفافة لتوزيع الضوء بانتظام حول مصدره.</p>
+          <div class="card-foot"><span class="price">٤٤٠ ر.س</span><a href="#contact" class="add">أضف للطلب</a></div>
+        </div>
+      </div></div>
+
+      <div class="card reveal reveal-scale" style="--i:5"><div class="card-inner">
+        <div class="card-visual"><div class="glyph"><div class="f f1"></div><div class="f f2"></div><div class="f f3"></div></div></div>
+        <div class="card-body">
+          <span class="tag">أثاث مصغّر</span>
+          <h3>كرسي تصميمي — مقياس ١:١٢</h3>
+          <p>نسخة مصغّرة طبق الأصل من قطع أثاث تصميمية، مفصلة الوصلات والمفاصل.</p>
+          <div class="card-foot"><span class="price">٢١٠ ر.س</span><a href="#contact" class="add">أضف للطلب</a></div>
+        </div>
+      </div></div>
 
     </div>
+  </section>
 
-
-    <div class="hero-visual">
-
-        <div class="glow"></div>
-
-        <div class="float-box float-1">
-            🎓 تعلم بسهولة
-        </div>
-
-        <div class="teacher-profile">
-
-            <div class="teacher-photo">
-                👨‍🏫
-            </div>
-
-            <h2>Mr. English</h2>
-
-            <div class="teacher-role">
-                English Teacher
-            </div>
-
-            <div class="teacher-divider"></div>
-
-            <div class="teacher-rating">
-                ⭐ ⭐ ⭐ ⭐ ⭐
-            </div>
-
-            <p style="margin-top:15px;color:#788398;font-size:13px;">
-                تعليم • متابعة • تدريبات • نجاح
-            </p>
-
-        </div>
-
-        <div class="float-box float-2">
-            📚 +50 كورس
-        </div>
-
+  <section id="process" class="process">
+    <div class="wrap" style="padding-bottom:0;">
+      <div class="sec-head reveal">
+        <span class="kicker">الآلية</span>
+        <h2>من الفكرة إلى القطعة</h2>
+        <p>أربع مراحل ثابتة لكل طلب، بدءًا من الملف وانتهاءً بالتغليف.</p>
+      </div>
     </div>
-
-</section>
-
-
-<!-- COURSES -->
-
-<section class="section courses" id="courses">
-
-    <div class="section-header">
-
-        <div class="section-label">
-            📚 الكورسات
-        </div>
-
-        <h2>
-            اختار كورسك وابدأ
-            <span>رحلتك</span>
-        </h2>
-
-        <p>
-            كورسات منظمة ومناسبة لكل مرحلة.
-        </p>
-
+    <div class="steps">
+      <div class="step reveal" style="--i:0"><div class="n">01</div><h3>استلام الملف أو الفكرة</h3><p>ترسل ملف تصميم جاهز، أو تصف الفكرة ونقوم بنمذجتها رقميًا معك خطوة بخطوة.</p></div>
+      <div class="step reveal" style="--i:1"><div class="n">02</div><h3>اختيار الخامة والمقياس</h3><p>نراجع معك الخامة الأنسب للاستخدام النهائي للقطعة، ونحدد المقاس والتشطيب.</p></div>
+      <div class="step reveal" style="--i:2"><div class="n">03</div><h3>الطباعة والمعالجة</h3><p>تُطبع القطعة طبقة فطبقة، ثم تمر بمرحلة تنظيف ومعالجة سطحية يدوية.</p></div>
+      <div class="step reveal" style="--i:3"><div class="n">04</div><h3>الفحص والتغليف</h3><p>فحص أبعاد نهائي مقابل الملف الأصلي، ثم تغليف واقٍ مناسب للشحن.</p></div>
     </div>
+  </section>
 
-    <div class="course-grid" id="publicCourses"></div>
-
-</section>
-
-
-<!-- FEATURES -->
-
-<section class="section features" id="features">
-
-    <div class="section-header">
-
-        <div class="section-label">
-            ⚡ لماذا Mr. English؟
+  <section id="materials" class="materials">
+    <div class="wrap">
+      <div>
+        <div class="sec-head reveal" style="margin-bottom:30px;">
+          <span class="kicker">الخامات</span>
+          <h2>الخامات المتاحة</h2>
+          <p>كل خامة تُختار حسب الاستخدام: عرض داخلي، إضاءة، أو تفاصيل دقيقة عالية الكثافة.</p>
         </div>
-
-        <h2>
-            كل اللي تحتاجه
-            <span>في مكان واحد</span>
-        </h2>
-
+        <div class="mat-list">
+          <div class="mat-row reveal" style="--i:0"><span class="name">راتنج معياري</span><span class="desc">تفاصيل حادة، تشطيب أملس، مناسب للتماثيل والبورتريه</span></div>
+          <div class="mat-row reveal" style="--i:1"><span class="name">راتنج معزز بالمعدن</span><span class="desc">وزن وملمس أقرب للبرونز، للقطع التذكارية</span></div>
+          <div class="mat-row reveal" style="--i:2"><span class="name">PLA حجري</span><span class="desc">ملمس خشن طبيعي يحاكي الحجر الجيري</span></div>
+          <div class="mat-row reveal" style="--i:3"><span class="name">راتنج أسود مطفي</span><span class="desc">امتصاص ضوء كامل، مثالي للأشكال الهندسية</span></div>
+          <div class="mat-row reveal" style="--i:4"><span class="name">راتنج شبه شفاف</span><span class="desc">لتمرير الضوء في قواعد الإضاءة والتمائم</span></div>
+          <div class="mat-row reveal" style="--i:5"><span class="name">مركّب خشبي</span><span class="desc">نشارة خشب حقيقية ضمن الخامة، رائحة وملمس خشبي</span></div>
+        </div>
+      </div>
+      <div class="swatches">
+        <div class="swatch sw1 reveal reveal-scale" style="--i:0"><span>راتنج معياري</span></div>
+        <div class="swatch sw2 reveal reveal-scale" style="--i:1"><span>معزز بالمعدن</span></div>
+        <div class="swatch sw3 reveal reveal-scale" style="--i:2"><span>PLA حجري</span></div>
+        <div class="swatch sw4 reveal reveal-scale" style="--i:3"><span>أسود مطفي</span></div>
+        <div class="swatch sw5 reveal reveal-scale" style="--i:4"><span>شبه شفاف</span></div>
+        <div class="swatch sw6 reveal reveal-scale" style="--i:5"><span>مركّب خشبي</span></div>
+      </div>
     </div>
+  </section>
 
-    <div class="features-grid">
-
-        <div class="feature">
-            <div class="feature-icon">🎥</div>
-            <h3>فيديوهات شرح</h3>
-            <p>دروس مرتبة وسهلة تقدر ترجع لها في أي وقت.</p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-icon">📝</div>
-            <h3>تدريبات واختبارات</h3>
-            <p>اختبر نفسك وتابع مستواك باستمرار.</p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-icon">📱</div>
-            <h3>موبايل وكمبيوتر</h3>
-            <p>المنصة مصممة لتعمل على جميع الأجهزة.</p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-icon">🏆</div>
-            <h3>تطور مستواك</h3>
-            <p>تعلم خطوة بخطوة حتى تصل لأفضل مستوى.</p>
-        </div>
-
+  <section class="cta-band" id="contact">
+    <div class="wrap reveal reveal-scale">
+      <h2>عندك فكرة تحتاج شكلًا؟</h2>
+      <p>أرسل الملف أو حتى الوصف، ونرد عليك خلال يوم عمل بمعاينة ثلاثية الأبعاد وسعر مبدئي.</p>
+      <a href="mailto:studio@masbouka.example" class="btn-primary" data-magnetic>راسلنا الآن</a>
     </div>
+  </section>
 
-</section>
-
-
-<!-- ABOUT -->
-
-<section class="section about" id="about">
-
-    <div class="about-container">
-
-        <div class="about-avatar">
-            👨‍🏫
-        </div>
-
-        <div class="about-content">
-
-            <span>عن المستر</span>
-
-            <h2>
-                مش هدفنا تحفظ الإنجليزي...
-                هدفنا إنك تفهمه.
-            </h2>
-
-            <p>
-                في Mr. English بنحاول نخلي تعلم اللغة بسيط وممتع،
-                من خلال شرح واضح، تدريبات، اختبارات ومتابعة.
-                كل ده في منصة واحدة تساعد الطالب يتطور خطوة بخطوة.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- CONTACT -->
-
-<section class="section contact" id="contact">
-
-    <div class="section-header">
-
-        <div class="section-label">
-            📞 تواصل معنا
-        </div>
-
-        <h2>جاهز تبدأ؟</h2>
-
-        <p>
-            تواصل معانا لمعرفة تفاصيل الكورسات.
-        </p>
-
-    </div>
-
-    <div class="contact-grid">
-
-        <a class="contact-card" href="#">
-            <div>💬</div>
-            WhatsApp
-        </a>
-
-        <a class="contact-card" href="#">
-            <div>📘</div>
-            Facebook
-        </a>
-
-        <a class="contact-card" href="#">
-            <div>✈️</div>
-            Telegram
-        </a>
-
-    </div>
-
-</section>
-
+</main>
 
 <footer>
-
-    <div class="logo">
-        <span>MR.</span> ENGLISH
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo"><span class="mark"></span>مسبوكة</div>
+        <p>استوديو طباعة ثلاثية الأبعاد متخصص في المنحوتات والمجسمات المخصصة والقطع المعمارية المصغّرة.</p>
+      </div>
+      <div><h4>المتجر</h4><ul><li><a href="#work">كل القطع</a></li><li><a href="#materials">الخامات</a></li><li><a href="#process">آلية الطباعة</a></li></ul></div>
+      <div><h4>الدعم</h4><ul><li><a href="#contact">تواصل معنا</a></li><li><a href="#">تتبّع الطلب</a></li><li><a href="#">سياسة الاستبدال</a></li></ul></div>
+      <div><h4>الاستوديو</h4><ul><li><a href="#">من نحن</a></li><li><a href="#">المدونة التقنية</a></li><li><a href="#">وظائف</a></li></ul></div>
     </div>
-
-    <p>
-        © 2026 Mr. English — جميع الحقوق محفوظة
-    </p>
-
+    <div class="foot-bottom">
+      <span>© 2026 مسبوكة. جميع الحقوق محفوظة.</span>
+      <span>الرياض، المملكة العربية السعودية</span>
+    </div>
+  </div>
 </footer>
 
-</div>
-
-
-<!-- ======================================================
-     LOGIN MODAL
-======================================================= -->
-
-<div class="modal" id="loginModal">
-
-    <div class="modal-box">
-
-        <button class="close-modal" onclick="closeModal('loginModal')">
-            ×
-        </button>
-
-        <div class="modal-icon">
-            🎓
-        </div>
-
-        <h2 id="loginTitle">
-            أهلاً بيك 👋
-        </h2>
-
-        <p>
-            سجل دخولك للوصول إلى حسابك والكورسات.
-        </p>
-
-
-        <div class="form-group">
-            <label>الاسم</label>
-            <input id="loginName" type="text" placeholder="اكتب اسمك">
-        </div>
-
-        <div class="form-group">
-            <label>البريد الإلكتروني</label>
-            <input id="loginEmail" type="email" placeholder="example@email.com">
-        </div>
-
-        <div class="form-group">
-            <label>كلمة المرور</label>
-            <input id="loginPassword" type="password" placeholder="••••••••">
-        </div>
-
-        <button class="form-submit" onclick="studentLogin()">
-            دخول 🚀
-        </button>
-
-        <div class="switch-login">
-            أنت Admin؟
-            <button onclick="openAdminLogin()">
-                دخول لوحة الإدارة
-            </button>
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- ======================================================
-     ADMIN LOGIN
-======================================================= -->
-
-<div class="modal" id="adminLoginModal">
-
-    <div class="modal-box">
-
-        <button class="close-modal" onclick="closeModal('adminLoginModal')">
-            ×
-        </button>
-
-        <div class="modal-icon">
-            🔐
-        </div>
-
-        <h2>
-            لوحة الإدارة
-        </h2>
-
-        <p>
-            دخول خاص بمسؤول المنصة.
-        </p>
-
-        <div class="form-group">
-            <label>اسم المستخدم</label>
-            <input id="adminUsername" type="text" placeholder="admin">
-        </div>
-
-        <div class="form-group">
-            <label>كلمة المرور</label>
-            <input id="adminPassword" type="password" placeholder="••••••••">
-        </div>
-
-        <button class="form-submit" onclick="adminLogin()">
-            دخول لوحة التحكم 🔐
-        </button>
-
-        <p style="margin-top:15px;font-size:11px;color:#999;">
-            في النسخة التجريبية: admin / 123456
-        </p>
-
-    </div>
-
-</div>
-
-
-<!-- ======================================================
-     STUDENT AREA
-======================================================= -->
-
-<div class="student-area" id="studentArea">
-
-    <div class="student-header">
-
-        <div class="student-header-content">
-
-            <div>
-                <p>أهلاً بيك 👋</p>
-                <h1 id="studentWelcome">
-                    يا طالب
-                </h1>
-                <p>
-                    دي الكورسات المتاحة ليك.
-                </p>
-            </div>
-
-            <button class="btn btn-primary" onclick="logout()">
-                تسجيل الخروج
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div class="student-courses">
-
-        <div class="section-header" style="text-align:right;">
-            <div class="section-label">
-                📚 كورساتك
-            </div>
-            <h2>
-                ابدأ
-                <span>التعلم</span>
-            </h2>
-        </div>
-
-        <div class="student-course-grid" id="studentCourses"></div>
-
-    </div>
-
-</div>
-
-
-<!-- ======================================================
-     COURSE VIEW
-======================================================= -->
-
-<div class="course-view" id="courseView">
-
-    <div class="course-view-header">
-
-        <div class="course-view-header-inner">
-
-            <button class="btn btn-light" onclick="backToStudent()">
-                ← رجوع للكورسات
-            </button>
-
-            <h1 id="viewCourseTitle">
-                اسم الكورس
-            </h1>
-
-            <p id="viewCourseDescription">
-                وصف الكورس
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="lessons" id="lessonsContainer"></div>
-
-</div>
-
-
-<!-- ======================================================
-     ADMIN DASHBOARD
-======================================================= -->
-
-<div class="dashboard" id="adminDashboard">
-
-    <div class="dashboard-nav">
-
-        <div class="logo">
-            <span>MR.</span> ENGLISH
-        </div>
-
-        <div class="dashboard-user">
-
-            <div class="user-avatar">
-                👨‍💼
-            </div>
-
-            <strong>
-                Admin
-            </strong>
-
-            <button class="btn btn-danger" onclick="adminLogout()">
-                خروج
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <main class="dashboard-main">
-
-        <div class="dashboard-title">
-
-            <h1>
-                لوحة التحكم 👋
-            </h1>
-
-            <p>
-                إدارة المنصة والكورسات والطلاب.
-            </p>
-
-        </div>
-
-
-        <div class="dashboard-stats">
-
-            <div class="dashboard-stat">
-                <span>إجمالي الكورسات</span>
-                <strong id="statCourses">0</strong>
-            </div>
-
-            <div class="dashboard-stat">
-                <span>إجمالي الطلاب</span>
-                <strong id="statStudents">0</strong>
-            </div>
-
-            <div class="dashboard-stat">
-                <span>الدروس</span>
-                <strong id="statLessons">0</strong>
-            </div>
-
-            <div class="dashboard-stat">
-                <span>حالة المنصة</span>
-                <strong style="font-size:19px;color:#19b878;">
-                    ● Online
-                </strong>
-            </div>
-
-        </div>
-
-
-        <div class="admin-layout">
-
-            <aside class="sidebar">
-
-                <button class="active" onclick="showAdminPanel('coursesPanel')">
-                    📚 الكورسات
-                </button>
-
-                <button onclick="showAdminPanel('studentsPanel')">
-                    👨‍🎓 الطلاب
-                </button>
-
-                <button onclick="showAdminPanel('settingsPanel')">
-                    ⚙️ الإعدادات
-                </button>
-
-            </aside>
-
-
-            <section class="dashboard-panel">
-
-
-                <!-- COURSES PANEL -->
-
-                <div id="coursesPanel">
-
-                    <div class="panel-header">
-
-                        <h2>
-                            إدارة الكورسات
-                        </h2>
-
-                        <button class="btn btn-primary" onclick="openAddCourse()">
-                            + إضافة كورس
-                        </button>
-
-                    </div>
-
-                    <div class="admin-courses" id="adminCourses"></div>
-
-                </div>
-
-
-                <!-- STUDENTS PANEL -->
-
-                <div id="studentsPanel" style="display:none;">
-
-                    <div class="panel-header">
-                        <h2>
-                            الطلاب المسجلين
-                        </h2>
-                    </div>
-
-                    <div id="studentsList"></div>
-
-                </div>
-
-
-                <!-- SETTINGS -->
-
-                <div id="settingsPanel" style="display:none;">
-
-                    <div class="panel-header">
-                        <h2>
-                            إعدادات المنصة
-                        </h2>
-                    </div>
-
-                    <p style="color:#788398;line-height:2;">
-                        من هنا لاحقًا نقدر نضيف إعدادات اسم المستر،
-                        اللوجو، ألوان الموقع، روابط التواصل،
-                        بيانات الدفع وغيرها.
-                    </p>
-
-                </div>
-
-            </section>
-
-        </div>
-
-    </main>
-
-</div>
-
-
-<!-- ======================================================
-     ADD COURSE MODAL
-======================================================= -->
-
-<div class="modal" id="courseModal">
-
-    <div class="modal-box">
-
-        <button class="close-modal" onclick="closeModal('courseModal')">
-            ×
-        </button>
-
-        <div class="modal-icon">
-            📚
-        </div>
-
-        <h2>
-            إضافة كورس جديد
-        </h2>
-
-        <p>
-            أضف بيانات الكورس.
-        </p>
-
-        <div class="form-group">
-            <label>اسم الكورس</label>
-            <input id="courseName" type="text" placeholder="مثال: English للمرحلة الإعدادية">
-        </div>
-
-        <div class="form-group">
-            <label>وصف الكورس</label>
-            <textarea id="courseDescription" placeholder="اكتب وصف الكورس..."></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>المرحلة</label>
-
-            <select id="courseLevel">
-
-                <option value="ابتدائي">
-                    ابتدائي
-                </option>
-
-                <option value="إعدادي">
-                    إعدادي
-                </option>
-
-                <option value="ثانوي">
-                    ثانوي
-                </option>
-
-            </select>
-
-        </div>
-
-        <div class="form-group">
-            <label>الأيقونة</label>
-            <input id="courseIcon" type="text" value="📚">
-        </div>
-
-        <button class="form-submit" onclick="addCourse()">
-            نشر الكورس 🚀
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- ======================================================
-     LESSON MODAL
-======================================================= -->
-
-<div class="modal" id="lessonModal">
-
-    <div class="modal-box">
-
-        <button class="close-modal" onclick="closeModal('lessonModal')">
-            ×
-        </button>
-
-        <div class="modal-icon">
-            🎥
-        </div>
-
-        <h2>
-            إضافة درس
-        </h2>
-
-        <p>
-            أضف فيديو أو درس جديد للكورس.
-        </p>
-
-        <div class="form-group">
-            <label>اسم الدرس</label>
-            <input id="lessonName" type="text" placeholder="مثال: Introduction">
-        </div>
-
-        <div class="form-group">
-            <label>رابط الفيديو</label>
-            <input id="lessonVideo" type="url" placeholder="https://youtube.com/...">
-        </div>
-
-        <div class="form-group">
-            <label>مدة الفيديو</label>
-            <input id="lessonDuration" type="text" placeholder="25 دقيقة">
-        </div>
-
-        <button class="form-submit" onclick="addLesson()">
-            إضافة الدرس 🎬
-        </button>
-
-    </div>
-
-</div>
-
-
-<div class="toast" id="toast"></div>
-
+<button class="to-top" id="toTop" aria-label="العودة لأعلى الصفحة">
+  <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
 <script>
-
-/* =========================================================
-   DATABASE
-========================================================= */
-
-const defaultCourses = [
-
-    {
-        id:1,
-        name:"English للمرحلة الابتدائية",
-        description:"تأسيس قوي في اللغة الإنجليزية بطريقة سهلة وممتعة.",
-        level:"ابتدائي",
-        icon:"📘",
-        featured:false,
-        lessons:[
-            {
-                name:"Introduction",
-                duration:"18 دقيقة",
-                video:""
-            },
-            {
-                name:"Basic English",
-                duration:"25 دقيقة",
-                video:""
-            }
-        ]
-    },
-
-    {
-        id:2,
-        name:"English للمرحلة الإعدادية",
-        description:"شرح المنهج + تدريبات + مراجعات قبل الامتحانات.",
-        level:"إعدادي",
-        icon:"🚀",
-        featured:true,
-        lessons:[
-            {
-                name:"Unit 1",
-                duration:"30 دقيقة",
-                video:""
-            },
-            {
-                name:"Grammar",
-                duration:"35 دقيقة",
-                video:""
-            },
-            {
-                name:"Exercises",
-                duration:"20 دقيقة",
-                video:""
-            }
-        ]
-    },
-
-    {
-        id:3,
-        name:"English للمرحلة الثانوية",
-        description:"شرح متقدم وتدريب مستمر للوصول لأفضل نتيجة.",
-        level:"ثانوي",
-        icon:"🎯",
-        featured:false,
-        lessons:[
-            {
-                name:"Advanced Grammar",
-                duration:"40 دقيقة",
-                video:""
-            }
-        ]
-    }
-
-];
-
-
-if(!localStorage.getItem("mrEnglishCourses")){
-    localStorage.setItem(
-        "mrEnglishCourses",
-        JSON.stringify(defaultCourses)
-    );
-}
-
-
-function getCourses(){
-
-    return JSON.parse(
-        localStorage.getItem("mrEnglishCourses")
-    ) || [];
-
-}
-
-
-function saveCourses(courses){
-
-    localStorage.setItem(
-        "mrEnglishCourses",
-        JSON.stringify(courses)
-    );
-
-}
-
-
-/* =========================================================
-   UTILITIES
-========================================================= */
-
-function showToast(message){
-
-    const toast = document.getElementById("toast");
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    setTimeout(()=>{
-        toast.classList.remove("show");
-    },3000);
-
-}
-
-
-function closeModal(id){
-
-    document.getElementById(id).classList.remove("active");
-
-}
-
-
-function openModal(id){
-
-    document.getElementById(id).classList.add("active");
-
-}
-
-
-/* =========================================================
-   LOADER
-========================================================= */
-
-window.addEventListener("load",()=>{
-
-    setTimeout(()=>{
-
-        document
-        .getElementById("loader")
-        .classList.add("hide");
-
-    },700);
-
-});
-
-
-/* =========================================================
-   PUBLIC COURSES
-========================================================= */
-
-function renderPublicCourses(){
-
-    const container =
-        document.getElementById("publicCourses");
-
-    const courses = getCourses();
-
-    container.innerHTML = "";
-
-    courses.forEach(course=>{
-
-        container.innerHTML += `
-
-            <article class="course-card ${course.featured ? "featured":""}">
-
-                <div class="course-top">
-
-                    <div class="course-icon">
-                        ${course.icon}
-                    </div>
-
-                    ${
-                        course.featured
-                        ?
-                        `<span class="course-badge">
-                            🔥 الأكثر طلباً
-                        </span>`
-                        :
-                        `<span class="course-badge">
-                            ${course.level}
-                        </span>`
-                    }
-
-                </div>
-
-                <h3>
-                    ${course.name}
-                </h3>
-
-                <p>
-                    ${course.description}
-                </p>
-
-                <div class="course-info">
-
-                    <span>
-                        🎥 ${course.lessons.length} درس
-                    </span>
-
-                    <span>
-                        📝 تدريبات
-                    </span>
-
-                </div>
-
-                <button
-                    class="course-button"
-                    onclick="openCourse(${course.id})">
-
-                    مشاهدة الكورس 🚀
-
-                </button>
-
-            </article>
-
-        `;
-
+  /* ---------- theme toggle ---------- */
+  const root = document.documentElement;
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  root.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    root.setAttribute('data-theme', root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ---------- mobile menu ---------- */
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('open', isOpen);
+    burger.setAttribute('aria-expanded', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.remove('open'); burger.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false'); document.body.style.overflow = '';
+  }));
+
+  /* ---------- scroll progress + back-to-top ---------- */
+  const progress = document.getElementById('progress');
+  const toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+    progress.style.transform = `scaleX(${scrolled})`;
+    toTop.classList.toggle('show', h.scrollTop > window.innerHeight * 0.8);
+  }, { passive:true });
+  toTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  /* ---------- active nav link ---------- */
+  const sections = ['work','process','materials','contact'].map(id => document.getElementById(id)).filter(Boolean);
+  const navA = document.querySelectorAll('#navlinks a');
+  const navIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        navA.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+      }
     });
-
-    document.getElementById("heroCourses").textContent =
-        "+" + courses.length;
-
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-function openLogin(){
-
-    openModal("loginModal");
-
-}
-
-
-function studentLogin(){
-
-    const name =
-        document.getElementById("loginName").value.trim();
-
-    const email =
-        document.getElementById("loginEmail").value.trim();
-
-    const password =
-        document.getElementById("loginPassword").value.trim();
-
-
-    if(!name){
-
-        showToast("اكتب اسمك أولاً 👋");
-
-        return;
-
-    }
-
-
-    if(!email){
-
-        showToast("اكتب البريد الإلكتروني 📧");
-
-        return;
-
-    }
-
-
-    if(!password){
-
-        showToast("اكتب كلمة المرور 🔐");
-
-        return;
-
-    }
-
-
-    const students =
-        JSON.parse(
-            localStorage.getItem("mrEnglishStudents") || "[]"
-        );
-
-
-    const existing =
-        students.find(
-            student => student.email === email
-        );
-
-
-    if(existing){
-
-        existing.name = name;
-
-    }else{
-
-        students.push({
-            id:Date.now(),
-            name:name,
-            email:email
-        });
-
-    }
-
-
-    localStorage.setItem(
-        "mrEnglishStudents",
-        JSON.stringify(students)
-    );
-
-
-    localStorage.setItem(
-        "mrEnglishCurrentUser",
-        JSON.stringify({
-            name:name,
-            email:email
-        })
-    );
-
-
-    closeModal("loginModal");
-
-    showStudentArea();
-
-    showToast("تم تسجيل الدخول بنجاح 🎉");
-
-}
-
-
-/* =========================================================
-   STUDENT AREA
-========================================================= */
-
-function showStudentArea(){
-
-    document
-    .getElementById("mainWebsite")
-    .style.display="none";
-
-    document
-    .getElementById("studentArea")
-    .classList.add("active");
-
-    document
-    .getElementById("courseView")
-    .classList.remove("active");
-
-    const user =
-        JSON.parse(
-            localStorage.getItem("mrEnglishCurrentUser")
-        );
-
-    if(user){
-
-        document
-        .getElementById("studentWelcome")
-        .textContent =
-        "يا " + user.name + " 👋";
-
-    }
-
-    renderStudentCourses();
-
-}
-
-
-function renderStudentCourses(){
-
-    const container =
-        document.getElementById("studentCourses");
-
-    const courses = getCourses();
-
-    container.innerHTML = "";
-
-    courses.forEach(course=>{
-
-        container.innerHTML += `
-
-            <article class="course-card">
-
-                <div class="course-top">
-
-                    <div class="course-icon">
-                        ${course.icon}
-                    </div>
-
-                    <span class="course-badge">
-                        ${course.level}
-                    </span>
-
-                </div>
-
-                <h3>
-                    ${course.name}
-                </h3>
-
-                <p>
-                    ${course.description}
-                </p>
-
-                <div class="course-info">
-
-                    <span>
-                        🎥 ${course.lessons.length} درس
-                    </span>
-
-                    <span>
-                        🚀 متاح
-                    </span>
-
-                </div>
-
-                <button
-                    class="course-button"
-                    onclick="openStudentCourse(${course.id})">
-
-                    دخول الكورس
-
-                </button>
-
-            </article>
-
-        `;
-
+  }, { rootMargin:'-40% 0px -50% 0px' });
+  sections.forEach(s => navIO.observe(s));
+
+  /* ---------- generic scroll-reveal (replays every time, up or down) ---------- */
+  const revealIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle('in-view', entry.isIntersecting);
     });
+  }, { threshold:0.15 });
+  document.querySelectorAll('.reveal, .steps').forEach(el => revealIO.observe(el));
 
-}
-
-
-/* =========================================================
-   COURSE VIEW
-========================================================= */
-
-function openStudentCourse(id){
-
-    const course =
-        getCourses().find(c=>c.id===id);
-
-    if(!course) return;
-
-
-    document
-    .getElementById("studentArea")
-    .classList.remove("active");
-
-    document
-    .getElementById("courseView")
-    .classList.add("active");
-
-
-    document
-    .getElementById("viewCourseTitle")
-    .textContent = course.name;
-
-
-    document
-    .getElementById("viewCourseDescription")
-    .textContent = course.description;
-
-
-    const container =
-        document.getElementById("lessonsContainer");
-
-    container.innerHTML = "";
-
-
-    if(course.lessons.length===0){
-
-        container.innerHTML = `
-            <div class="empty">
-                لا توجد دروس مضافة لهذا الكورس حتى الآن 🎬
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    course.lessons.forEach((lesson,index)=>{
-
-        container.innerHTML += `
-
-            <div class="lesson">
-
-                <div class="lesson-number">
-                    ${index+1}
-                </div>
-
-                <div class="lesson-info">
-
-                    <h3>
-                        ${lesson.name}
-                    </h3>
-
-                    <span>
-                        🎥 ${lesson.duration || "فيديو"}
-                    </span>
-
-                </div>
-
-                ${
-                    lesson.video
-                    ?
-                    `<button
-                        class="lesson-btn"
-                        onclick="openVideo('${lesson.video}')">
-                        مشاهدة
-                    </button>`
-                    :
-                    `<button
-                        class="lesson-btn"
-                        onclick="showToast('الفيديو لم يتم رفعه بعد 🎥')">
-                        قريباً
-                    </button>`
-                }
-
-            </div>
-
-        `;
-
+  /* ---------- number counters, replay every time the strip re-enters view ---------- */
+  document.querySelectorAll('.num[data-target]').forEach(el => {
+    el.dataset.raf = '';
+  });
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const el = entry.target;
+      const target = parseFloat(el.dataset.target);
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const suffix = el.dataset.suffix || '';
+      if(el._raf) cancelAnimationFrame(el._raf);
+      if(entry.isIntersecting){
+        const duration = 1300;
+        const start = performance.now();
+        function tick(now){
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const val = (target * eased).toFixed(decimals);
+          el.textContent = val + suffix;
+          if(p < 1) el._raf = requestAnimationFrame(tick);
+        }
+        el._raf = requestAnimationFrame(tick);
+      } else {
+        el.textContent = (0).toFixed(decimals) + suffix;
+      }
     });
-
-}
-
-
-function openCourse(id){
-
-    const user =
-        localStorage.getItem("mrEnglishCurrentUser");
-
-    if(!user){
-
-        openLogin();
-
-        showToast("سجل دخولك الأول للوصول للكورس 👤");
-
-        return;
-
-    }
-
-    openStudentCourse(id);
-
-}
-
-
-function backToStudent(){
-
-    document
-    .getElementById("courseView")
-    .classList.remove("active");
-
-    document
-    .getElementById("studentArea")
-    .classList.add("active");
-
-}
-
-
-function openVideo(url){
-
-    if(!url){
-
-        showToast("الفيديو غير متاح حالياً");
-
-        return;
-
-    }
-
-    window.open(url,"_blank");
-
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-function logout(){
-
-    localStorage.removeItem("mrEnglishCurrentUser");
-
-    document
-    .getElementById("studentArea")
-    .classList.remove("active");
-
-    document
-    .getElementById("courseView")
-    .classList.remove("active");
-
-    document
-    .getElementById("mainWebsite")
-    .style.display="block";
-
-    showToast("تم تسجيل الخروج 👋");
-
-}
-
-
-/* =========================================================
-   ADMIN LOGIN
-========================================================= */
-
-function openAdminLogin(){
-
-    closeModal("loginModal");
-
-    openModal("adminLoginModal");
-
-}
-
-
-function adminLogin(){
-
-    const username =
-        document
-        .getElementById("adminUsername")
-        .value
-        .trim();
-
-    const password =
-        document
-        .getElementById("adminPassword")
-        .value
-        .trim();
-
-
-    /*
-        DEMO LOGIN
-
-        username: admin
-        password: 123456
-    */
-
-
-    if(
-        username === "admin" &&
-        password === "123456"
-    ){
-
-        localStorage.setItem(
-            "mrEnglishAdmin",
-            "true"
-        );
-
-        closeModal("adminLoginModal");
-
-        document
-        .getElementById("mainWebsite")
-        .style.display="none";
-
-        document
-        .getElementById("adminDashboard")
-        .classList.add("active");
-
-        renderAdmin();
-
-        showToast("أهلاً بيك يا Admin 🔐");
-
-    }else{
-
-        showToast("بيانات الدخول غير صحيحة ❌");
-
-    }
-
-}
-
-
-/* =========================================================
-   ADMIN DASHBOARD
-========================================================= */
-
-function renderAdmin(){
-
-    const courses = getCourses();
-
-    const students =
-        JSON.parse(
-            localStorage.getItem("mrEnglishStudents") || "[]"
-        );
-
-
-    let lessonCount = 0;
-
-    courses.forEach(course=>{
-        lessonCount += course.lessons.length;
+  }, { threshold:0.6 });
+  document.querySelectorAll('.num[data-target]').forEach(el => countIO.observe(el));
+
+  /* ---------- mouse-reactive 3D hero object ---------- */
+  const stage = document.getElementById('stage');
+  const solid = document.getElementById('solid');
+  let rafId = null;
+  function updateFromPointer(x, y, rect){
+    const px = (x - rect.left) / rect.width;
+    const py = (y - rect.top) / rect.height;
+    const rotY = (px - 0.5) * 70;
+    const rotX = -((py - 0.5) * 50);
+    solid.style.transform = `rotateX(${rotX}deg) rotateY(${rotY + 35}deg)`;
+  }
+  stage.addEventListener('mousemove', (e) => {
+    const rect = stage.getBoundingClientRect();
+    if(rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => updateFromPointer(e.clientX, e.clientY, rect));
+  });
+  stage.addEventListener('mouseleave', () => { solid.style.transform = ''; });
+  let kx = -18, ky = 35;
+  stage.addEventListener('keydown', (e) => {
+    const step = 12;
+    if(e.key === 'ArrowLeft'){ ky -= step; }
+    else if(e.key === 'ArrowRight'){ ky += step; }
+    else if(e.key === 'ArrowUp'){ kx -= step; }
+    else if(e.key === 'ArrowDown'){ kx += step; }
+    else return;
+    e.preventDefault();
+    solid.style.transform = `rotateX(${kx}deg) rotateY(${ky}deg)`;
+  });
+
+  /* ---------- product card tilt ---------- */
+  document.querySelectorAll('.card').forEach((card) => {
+    const inner = card.querySelector('.card-inner');
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const px = (e.clientX - rect.left) / rect.width;
+      const py = (e.clientY - rect.top) / rect.height;
+      const rotY = (px - 0.5) * 14;
+      const rotX = -(py - 0.5) * 14;
+      inner.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
     });
+    card.addEventListener('mouseleave', () => { inner.style.transform = ''; });
+  });
 
-
-    document.getElementById("statCourses")
-    .textContent = courses.length;
-
-
-    document.getElementById("statStudents")
-    .textContent = students.length;
-
-
-    document.getElementById("statLessons")
-    .textContent = lessonCount;
-
-
-    renderAdminCourses();
-
-    renderStudents();
-
-}
-
-
-function renderAdminCourses(){
-
-    const container =
-        document.getElementById("adminCourses");
-
-    const courses = getCourses();
-
-    container.innerHTML = "";
-
-
-    if(courses.length===0){
-
-        container.innerHTML = `
-            <div class="empty">
-                لا توجد كورسات حتى الآن.
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    courses.forEach(course=>{
-
-        container.innerHTML += `
-
-            <div class="admin-course">
-
-                <div class="admin-course-info">
-
-                    <div class="admin-course-icon">
-                        ${course.icon}
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            ${course.name}
-                        </strong>
-
-                        <div style="font-size:11px;color:#788398;">
-                            ${course.level}
-                            •
-                            ${course.lessons.length} درس
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="admin-actions">
-
-                    <button
-                        class="small-btn btn-primary"
-                        onclick="openAddLesson(${course.id})">
-
-                        + درس
-
-                    </button>
-
-                    <button
-                        class="small-btn btn-danger"
-                        onclick="deleteCourse(${course.id})">
-
-                        حذف
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        `;
-
+  /* ---------- magnetic primary buttons ---------- */
+  document.querySelectorAll('[data-magnetic]').forEach((btn) => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = (e.clientX - rect.left - rect.width / 2) * 0.35;
+      const y = (e.clientY - rect.top - rect.height / 2) * 0.35;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
     });
+    btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+  });
 
-}
-
-
-/* =========================================================
-   ADD COURSE
-========================================================= */
-
-function openAddCourse(){
-
-    document.getElementById("courseName").value="";
-    document.getElementById("courseDescription").value="";
-    document.getElementById("courseLevel").value="ابتدائي";
-    document.getElementById("courseIcon").value="📚";
-
-    openModal("courseModal");
-
-}
-
-
-function addCourse(){
-
-    const name =
-        document
-        .getElementById("courseName")
-        .value
-        .trim();
-
-    const description =
-        document
-        .getElementById("courseDescription")
-        .value
-        .trim();
-
-    const level =
-        document
-        .getElementById("courseLevel")
-        .value;
-
-    const icon =
-        document
-        .getElementById("courseIcon")
-        .value
-        .trim() || "📚";
-
-
-    if(!name){
-
-        showToast("اكتب اسم الكورس ❌");
-
-        return;
-
-    }
-
-
-    const courses = getCourses();
-
-
-    courses.push({
-
-        id:Date.now(),
-
-        name:name,
-
-        description:
-            description ||
-            "كورس تعليمي متكامل.",
-
-        level:level,
-
-        icon:icon,
-
-        featured:false,
-
-        lessons:[]
-
+  /* ---------- cursor glow, desktop only, smoothed ---------- */
+  const glow = document.getElementById('cursorGlow');
+  const canHover = window.matchMedia('(hover:hover)').matches;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(canHover && !reduceMotion){
+    let gx = window.innerWidth/2, gy = window.innerHeight/2, tx = gx, ty = gy;
+    window.addEventListener('mousemove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      glow.style.opacity = '1';
     });
-
-
-    saveCourses(courses);
-
-    closeModal("courseModal");
-
-    renderAdmin();
-
-    renderPublicCourses();
-
-    showToast("تم نشر الكورس بنجاح 🚀");
-
-}
-
-
-/* =========================================================
-   DELETE COURSE
-========================================================= */
-
-function deleteCourse(id){
-
-    if(!confirm("هل أنت متأكد من حذف الكورس؟")){
-
-        return;
-
+    document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
+    function loop(){
+      gx += (tx - gx) * 0.12;
+      gy += (ty - gy) * 0.12;
+      glow.style.transform = `translate(${gx}px, ${gy}px) translate(-50%,-50%)`;
+      requestAnimationFrame(loop);
     }
-
-
-    const courses =
-        getCourses().filter(
-            course=>course.id!==id
-        );
-
-
-    saveCourses(courses);
-
-    renderAdmin();
-
-    renderPublicCourses();
-
-    showToast("تم حذف الكورس 🗑️");
-
-}
-
-
-/* =========================================================
-   ADD LESSON
-========================================================= */
-
-let selectedCourseId = null;
-
-
-function openAddLesson(courseId){
-
-    selectedCourseId = courseId;
-
-    document.getElementById("lessonName").value="";
-    document.getElementById("lessonVideo").value="";
-    document.getElementById("lessonDuration").value="";
-
-    openModal("lessonModal");
-
-}
-
-
-function addLesson(){
-
-    if(!selectedCourseId) return;
-
-
-    const name =
-        document
-        .getElementById("lessonName")
-        .value
-        .trim();
-
-    const video =
-        document
-        .getElementById("lessonVideo")
-        .value
-        .trim();
-
-    const duration =
-        document
-        .getElementById("lessonDuration")
-        .value
-        .trim();
-
-
-    if(!name){
-
-        showToast("اكتب اسم الدرس ❌");
-
-        return;
-
-    }
-
-
-    const courses = getCourses();
-
-    const course =
-        courses.find(
-            c=>c.id===selectedCourseId
-        );
-
-
-    if(!course) return;
-
-
-    course.lessons.push({
-
-        name:name,
-
-        video:video,
-
-        duration:duration || "فيديو"
-
-    });
-
-
-    saveCourses(courses);
-
-    closeModal("lessonModal");
-
-    renderAdmin();
-
-    renderPublicCourses();
-
-    showToast("تم إضافة الدرس 🎬");
-
-}
-
-
-/* =========================================================
-   STUDENTS
-========================================================= */
-
-function renderStudents(){
-
-    const container =
-        document.getElementById("studentsList");
-
-
-    const students =
-        JSON.parse(
-            localStorage.getItem("mrEnglishStudents") || "[]"
-        );
-
-
-    if(students.length===0){
-
-        container.innerHTML = `
-            <div class="empty">
-                لا يوجد طلاب مسجلين حتى الآن 👨‍🎓
-            </div>
-        `;
-
-        return;
-
-    }
-
-
-    container.innerHTML = "";
-
-
-    students.forEach((student,index)=>{
-
-        container.innerHTML += `
-
-            <div
-                style="
-                display:flex;
-                justify-content:space-between;
-                align-items:center;
-                padding:16px;
-                border-bottom:1px solid #edf0f4;
-                "
-            >
-
-                <div>
-
-                    <strong>
-                        ${index+1}. ${student.name}
-                    </strong>
-
-                    <div style="font-size:11px;color:#788398;">
-                        ${student.email}
-                    </div>
-
-                </div>
-
-                <span style="font-size:11px;color:#19b878;">
-                    ● مسجل
-                </span>
-
-            </div>
-
-        `;
-
-    });
-
-}
-
-
-/* =========================================================
-   ADMIN PANELS
-========================================================= */
-
-function showAdminPanel(panel){
-
-    document
-    .getElementById("coursesPanel")
-    .style.display="none";
-
-    document
-    .getElementById("studentsPanel")
-    .style.display="none";
-
-    document
-    .getElementById("settingsPanel")
-    .style.display="none";
-
-
-    document
-    .getElementById(panel)
-    .style.display="block";
-
-
-    document
-    .querySelectorAll(".sidebar button")
-    .forEach(button=>{
-        button.classList.remove("active");
-    });
-
-
-    event.target.classList.add("active");
-
-}
-
-
-/* =========================================================
-   ADMIN LOGOUT
-========================================================= */
-
-function adminLogout(){
-
-    localStorage.removeItem("mrEnglishAdmin");
-
-    document
-    .getElementById("adminDashboard")
-    .classList.remove("active");
-
-    document
-    .getElementById("mainWebsite")
-    .style.display="block";
-
-    showToast("تم تسجيل الخروج من لوحة الإدارة 👋");
-
-}
-
-
-/* =========================================================
-   AUTO SESSION
-========================================================= */
-
-window.addEventListener("DOMContentLoaded",()=>{
-
-    renderPublicCourses();
-
-
-    const currentUser =
-        localStorage.getItem(
-            "mrEnglishCurrentUser"
-        );
-
-
-    const admin =
-        localStorage.getItem(
-            "mrEnglishAdmin"
-        );
-
-
-    if(admin==="true"){
-
-        document
-        .getElementById("mainWebsite")
-        .style.display="none";
-
-        document
-        .getElementById("adminDashboard")
-        .classList.add("active");
-
-        renderAdmin();
-
-    }
-
-    else if(currentUser){
-
-        showStudentArea();
-
-    }
-
-});
-
+    requestAnimationFrame(loop);
+  }
 </script>
 
 </body>
